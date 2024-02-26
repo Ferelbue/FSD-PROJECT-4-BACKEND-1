@@ -1,6 +1,6 @@
 
 import express from "express";
-import { createRoles, deleteRoles, getRoles, updateRoles } from "../controllers/roleController";
+import { createRoles, deleteRoles, getRoles, updateRoles } from "./controllers/roleController";
 
 export const app = express();
 

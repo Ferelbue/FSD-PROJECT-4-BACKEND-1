@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "migration-run": "typeorm-ts-node-commonjs migration:run -d ./src/db.ts",
+    "migration-drop": "typeorm-ts-node-commonjs migration:revert -d ./src/db.ts",
     "dev": "nodemon ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
