@@ -4,13 +4,8 @@ import { createRoles, deleteRoles, getRoles, updateRoles } from "./controllers/r
 
 export const app = express();
 
-   
-
-//parsear el texto plano recibido a JSON
 app.use(express.json());
 
-
-//Comprueba si el servidor esta activado
 app.get('/healthy', (req,res) => {
     res.status(200).json(
     {
@@ -19,9 +14,8 @@ app.get('/healthy', (req,res) => {
     })
 })
 
-
 // ROLES RUTES
 app.get('/roles', getRoles)
 app.post('/roles', createRoles)
-app.put('/roles/:id', updateRoles) // los dos puntos indican que lo que pongas a continuacion es dinamico
+app.put('/roles/:id', updateRoles)
 app.delete('/roles/:id', deleteRoles)
