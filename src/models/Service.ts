@@ -1,4 +1,6 @@
 import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm"
+import { Appointment } from "./Appointment";
+
 
 @Entity('services')
 export class Service extends BaseEntity {
@@ -9,7 +11,7 @@ export class Service extends BaseEntity {
     @Column({ name: 'name' })
     name!: string
 
-    @OneToMany(() => User, (user) => user.role)
-    users!: User[];
+    @OneToMany(() => Appointment, (appointment) => appointment.service)
+    appointment!: Appointment[];
 
 }

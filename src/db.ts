@@ -7,6 +7,8 @@ import { Services1708977714733 } from "./database/migrations/1708977714733-servi
 import { Appointments1708978286596 } from "./database/migrations/1708978286596-appointments"
 import { Role } from "./models/Role"
 import { User } from "./models/User"
+import { Service } from "./models/Service"
+import { Appointment } from "./models/Appointment"
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -17,7 +19,9 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE || "test",
     entities: [
         Role,
-        User
+        User,
+        Service,
+        Appointment
     ],
     migrations: [
         Roles1708955321316,
