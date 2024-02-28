@@ -47,7 +47,7 @@ The projetc consists in develop the backend for the appointment management syste
 
 Try out the API at:
 
-> [](asdsaasdsaasdsssdfsdfdsfdasdsadsfdsfdsfsdfsdfadsadd)
+> [](asdsaasdsaasdsssdfsdfdsfdasdsadsaasdasdsadsfdsfdsfsdfsdfadsadd)
 
 ***
 ## Installation 🚀
