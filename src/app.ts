@@ -24,18 +24,18 @@ app.post('/api/auth/login', login)
 
 
 // USERS RUTES
-app.get('/api/users', getUsers)
-app.get('/api/users/profile', getUserProfile)
+app.get('/api/users', getUsers) // Inprogress me falta el id 
+app.get('/api/users/profile/:id', getUserProfile) 
 app.get('/api/users/:email', getUserByEmail)
 app.put('/api/users/profile', updateUserProfile)
 app.put('/api/users/:id/role ', updateUserRole)
 app.delete('/api/users/:id:', deleteUser)
 
 // APPOINTMENTS RUTES
-app.get('/api/appointments/:id', getAppointment) // Done
+app.get('/api/appointments/:id', getAppointment) // Inprogress me falta el id 
 app.get('/api/appointments', getAllAppointment) // Done
 app.post('/api/appointments', createAppointment) // Done
-app.put('/api/appointments/:id', updateAppointment) 
+app.put('/api/appointments/:id', updateAppointment) // Done
 
 // SERVICES RUTES
 app.get('/api/services', getServices) //Done
