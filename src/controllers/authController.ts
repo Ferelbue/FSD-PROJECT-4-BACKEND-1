@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../models/User";
-import { app } from "../app";
 
 // CREATE USERS
 export const register = async (req: Request, res: Response) => {

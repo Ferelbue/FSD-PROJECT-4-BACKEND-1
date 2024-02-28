@@ -8,23 +8,14 @@ export class Appointment extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @Column({ name: 'first_name' })
-    firstName!: string
+    @Column({ name: 'appointment_date' })
+    appointmentDate!: Date
 
-    @Column({ name: 'last_name' })
-    lastName!: string
-
-    @Column({ name: 'email' })
-    email!: string
-
-    @Column({ name: 'password_hash' })
-    passwordHash!: string
-
-    @ManyToOne(() => User, (user) => user.appointment)
+    @ManyToOne(() => User, (user) => user.appointments)
     @JoinColumn({ name: "user_id" })
-    role!: User;
+    user!: User;
     
-    @ManyToOne(() => Service, (service) => service.appointment)
+    @ManyToOne(() => Service, (service) => service.appointments)
     @JoinColumn({ name: "service_id" })
-    service!: Service[];
+    service!: Service;
 }

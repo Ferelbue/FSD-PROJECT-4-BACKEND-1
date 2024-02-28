@@ -1,125 +1,111 @@
 import { Request, Response } from "express"
 import { Appointment } from "../models/Appointment"
 
+
 //GET ONE USER APPOINTMENT
 export const getAppointment = async (req: Request, res: Response) => {
     try {
-        // recuperar la info a traves del body
-        const name = req.body.name
+        const appointmentId = req.params.id;
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
+        const appointment = await Appointment.findOneBy(
+            {
+                id: parseInt(appointmentId)
+            }
+        )
+
+        if (!appointment) {
+            return res.status(404).json({
+                success: false,
+                message: "Appointment not found",
+
             })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
+
         }
 
-        //Guardar datos en BD
-        const newUser = await Appointment.create({
-            firstName: name
-        }).save();
-
-        //Response
         res.status(200).json(
             {
                 success: true,
-                message: "Roles retrieve succesfully"
-            })
-
+                message: "Appointment retrieved successfully",
+                data: appointment
+            }
+        )
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Appointment cant be retrieved",
             error: error
         })
     }
+
 }
 
 //GET ALL USER APPOINTMENT
 export const getAllAppointment = async (req: Request, res: Response) => {
     try {
-        // recuperar la info a traves del body
-        const name = req.body.name
+        //Consultar en base de datos
+        const appointments = await Appointment.find(
+            {
+                select: {
+                    id: true,
+                    appointmentDate: true,
+                    user: {
+                        id: true,
+                    },
+                    service: {
+                        id: true,
+                    }
+                }
+            }
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
-            })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
-        }
+        )
+        console.log("hola")
 
-        //Guardar datos en BD
-        const newUser = await Appointment.create({
-            firstName: name
-        }).save();
-
-        //Response
         res.status(200).json(
             {
                 success: true,
-                message: "Roles retrieve succesfully"
-            })
+                message: "Users retrieved successfully",
+                data: appointments
+            }
+        )
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Users cant be retrieved",
             error: error
         })
     }
 }
 
-//CREATE APPOINTMENT
+// CREATE APPOINTMENT
 export const createAppointment = async (req: Request, res: Response) => {
     try {
-        //Recuperar parametros de la ruta
-        const name = req.params.id
-        console.log(req.params.id)
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
-            })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
-        }
+        const appointmentDate = req.body.appointmentDate;
+        const userId = req.body.user.id;
+        const serviceId = req.body.service.id;
 
-        //Guardar datos en BD
-        const newUser = await Appointment.create({
-            firstName: name
-        }).save();
-
-        //Response
-        res.status(200).json(
+        const newAppointment = await Appointment.create({
+            appointmentDate: appointmentDate,
+            user: {
+                id: userId
+            },
+            service: {
+                id: serviceId
+            }
+        }).save()
+        console.log("hola")
+        res.status(201).json(
             {
-                success: true,
-                message: "Roles updated succesfully"
-            })
+                success: false,
+                message: "Appointment registered successfully"
+            }
+        )
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Appointment cant be created",
             error: error
         })
     }
@@ -128,42 +114,61 @@ export const createAppointment = async (req: Request, res: Response) => {
 //MODIFY APPOINTMENT
 export const updateAppointment = async (req: Request, res: Response) => {
     try {
-        //Recuperar parametros de la ruta
-        const name = req.params.id
-        console.log(req.params.id)
+        const appointmentId = req.params.id;
+        const appointmentDate = req.body.appointmentDate;
+        const userId = req.body.user.id;
+        const serviceId = req.body.service.id;
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
-            })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
-        }
+        // //Validar datos
+        // const user = await Appointment.findOneBy(
+        //     {
+        //         id: parseInt(userId)
+        //     }
+        // )
 
-        //Guardar datos en BD
-        const newUser = await Appointment.create({
-            firstName: name
-        }).save();
+        // if (!user) {
+        //     return res.status(404).json({
+        //         success: false,
+        //         message: "User not found",
 
-        //Response
+        //     })
+
+        // }
+
+        // Tratar datos
+
+
+
+        // Actualizar datos
+        const appointmentUpdated = await Appointment.update(
+            {
+                id: parseInt(appointmentId)
+            },
+            {
+                 appointmentDate: appointmentDate,
+                 user: {id: userId},
+                 service: {id: serviceId}
+
+            }
+        )
+
+
+
+
+        // Responder
         res.status(200).json(
             {
                 success: true,
-                message: "Roles updated succesfully"
-            })
+                message: "Appointment updated successfully",
+                data: appointmentUpdated
+            }
+        )
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Appointment cant be update",
             error: error
         })
     }
 }
-

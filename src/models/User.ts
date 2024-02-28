@@ -24,6 +24,6 @@ export class User extends BaseEntity{
     @JoinColumn({ name: "role_id" })
     role!: Role;
 
-    @OneToMany(() => Appointment, (appointment) => appointment.service)
-    appointment!: Appointment[];
+    @OneToMany(() => Appointment, (appointment) => appointment.user)
+    appointments!: Appointment[];
 }

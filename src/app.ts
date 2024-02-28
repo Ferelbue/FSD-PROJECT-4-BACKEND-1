@@ -26,25 +26,19 @@ app.post('/api/auth/login', login)
 // USERS RUTES
 app.get('/api/users', getUsers)
 app.get('/api/users/profile', getUserProfile)
-app.get('/api/users/profile', getUserByEmail)
+app.get('/api/users/:email', getUserByEmail)
 app.put('/api/users/profile', updateUserProfile)
 app.put('/api/users/:id/role ', updateUserRole)
 app.delete('/api/users/:id:', deleteUser)
 
 // APPOINTMENTS RUTES
-app.get('/api/appointments/{id}', getAppointment)
-app.get('/api/appointments', getAllAppointment)
-app.post('/api/appointments', createAppointment)
-app.put('/api/appointments', updateAppointment)
+app.get('/api/appointments/:id', getAppointment) // Done
+app.get('/api/appointments', getAllAppointment) // Done
+app.post('/api/appointments', createAppointment) // Done
+app.put('/api/appointments/:id', updateAppointment) 
 
 // SERVICES RUTES
 app.get('/api/services', getServices) //Done
 app.post('/api/services', createService) //Done
 app.put('/api/services/:id', updateService) //Done
 app.delete('/api/services/:id', deleteService) //Done
-
-// // USER ROUTES
-// app.get('/api/users', getUsers)
-// app.get('/api/user/:id', getUserById)
-// app.put('/api/user/:id', updateUserById)
-// app.delete('/api/user/:id', deleteUserById)
