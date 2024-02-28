@@ -8,8 +8,11 @@ export class Service extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number
 
-    @Column({ name: 'name' })
-    name!: string
+    @Column({ name: 'service_name' })
+    serviceName!: string
+
+    @Column({ name: 'description' })
+    description!: string
 
     @OneToMany(() => Appointment, (appointment) => appointment.service)
     appointment!: Appointment[];

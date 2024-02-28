@@ -4,39 +4,27 @@ import { Service } from "../models/Service"
 //GET SERVICE
 export const getServices = async (req: Request, res: Response) => {
     try {
-        // recuperar la info a traves del body
-        const name = req.body.name
-
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
-            })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
-        }
-
-        //Guardar datos en BD
-        const newUser = await Service.create({
-            name: name
-        }).save();
-
-        //Response
+        //Consultar en base de datos
+        const users = await Service.find(
+            {
+                select: {
+                    serviceName: true,
+                    description: true,
+                }
+            }
+        )
         res.status(200).json(
             {
                 success: true,
-                message: "Roles retrieve succesfully"
-            })
+                message: "Users retrieved successfully",
+                data: users
+            }
+        )
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Users cant be retrieved",
             error: error
         })
     }
@@ -44,41 +32,28 @@ export const getServices = async (req: Request, res: Response) => {
 
 //CREATE SERVICE
 export const createService = async (req: Request, res: Response) => {
+
     try {
-        //Recuperar parametros de la ruta
-        const name = req.params.id
-        console.log(req.params.id)
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
-            })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
-        }
+        const serviceName = req.body.serviceName;
+        const description = req.body.description;
 
-        //Guardar datos en BD
         const newUser = await Service.create({
-            name: name
-        }).save();
+            serviceName: serviceName,
+            description: description,
+      }).save()
 
-        //Response
-        res.status(200).json(
+        res.status(201).json(
             {
-                success: true,
-                message: "Roles updated succesfully"
-            })
+                success: false,
+                message: "Service registered successfully"
+            }
+        )
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Service cant be created",
             error: error
         })
     }
@@ -87,40 +62,58 @@ export const createService = async (req: Request, res: Response) => {
 //MODIFY SERVICE
 export const updateService = async (req: Request, res: Response) => {
     try {
-        //Recuperar parametros de la ruta
-        const name = req.params.id
-        console.log(req.params.id)
+        const userId = req.params.id;
+        const serviceName = req.body.serviceName;
+        const description = req.body.description;
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
+        //Validar datos
+        const user = await Service.findOneBy(
+            {
+                id: parseInt(userId)
+            }
+        )
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+
             })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
+
         }
 
-        //Guardar datos en BD
-        const newUser = await Service.create({
-            name: name
-        }).save();
+        // Tratar datos
 
-        //Response
+
+
+        // Actualizar datos
+        const serviceUpdated = await Service.update(
+            {
+                id: parseInt(userId)
+            },
+            {
+                serviceName: serviceName,
+                description: description
+            },
+
+        )
+
+
+
+
+        // Responder
         res.status(200).json(
             {
                 success: true,
-                message: "Roles updated succesfully"
-            })
+                message: "Service updated successfully",
+                data: serviceUpdated
+            }
+        )
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Service cant be update",
             error: error
         })
     }
@@ -128,42 +121,32 @@ export const updateService = async (req: Request, res: Response) => {
 
 //DELETE SERVICE
 export const deleteService = async (req: Request, res: Response) => {
+
     try {
-        //Recuperar parametros de la ruta
-        const name = req.body.id
+        const userId = req.params.id
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
-            })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
+        const user = await Service.findOneBy({
+            id: parseInt(userId)
+        })
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
             })
         }
 
-        //Guardar datos en BD
-        const newUser = await Service.create({
-            name: name
-        }).save();
-
-        //Response
-        res.status(200).json(
-            {
-                success: true,
-                message: "Roles updated succesfully"
-            })
-
+        const userDeleted = await Service.remove(user)
+        
+        return res.status(200).json({
+            success: true,
+            message: "User deleted successfully",
+            data: userDeleted
+        })
     } catch (error) {
-        res.status(200).json(
-            {
-                success: true,
-                message: "Roles deleted succesfully"
-            })
+        return res.status(500).json({
+            success: false,
+            message: "User can't be deleted",
+            error: error
+        })
     }
 }
-
