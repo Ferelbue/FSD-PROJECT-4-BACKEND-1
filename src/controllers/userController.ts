@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { User } from "../models/User"
 
+
 //GET ALL USERS
 export const getUsers = async (req: Request, res: Response) => {
     try {
@@ -42,20 +43,18 @@ export const getUsers = async (req: Request, res: Response) => {
 
 //GET USER PROFILE
 export const getUserProfile = async (req: Request, res: Response) => {
+ 
     try {
-        const userId = req.params.id;
-        console.log(userId)
+        const userId = req.tokenData.userId
 
         const user = await User.findOne(
             {
                 where: {
-                        id: parseInt(userId)
-                }, // hasta aqui me devuelve todo el usuario sin las relaciones
-
+                        id: userId
+                }, 
                 relations: {
                     role: true
-                },// hasta aqui me devuelve usuario con l¡toda la tabla de relaciones
-
+                },
                 select: {
                     id: true,
                     firstName: true,
@@ -63,7 +62,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
                     role: {
                         name: true,
                     }
-                }// Hasta aqui me trae lo que yo le especifico tanto en user como en la tabla de relacciones
+                }
             }
         )
 
@@ -133,39 +132,67 @@ export const getUserByEmail = async (req: Request, res: Response) => {
 export const updateUserProfile = async (req: Request, res: Response) => {
     try {
         //Recuperar parametros de la ruta
-        const name = req.params.id
-        console.log(req.params.id)
+        const name = req.body.name
+        const userId = req.tokenData.userId
+
+
+        //Validar datos
+        const user = await User.findOneBy(
+            {
+                id: userId
+            }
+        )
+            console.log(user)
+            console.log(name)
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+
+            })
+
+        }
 
         //Validacion
         if (name.length > 50) {
+            
             return res.status(400).json({
                 succes: false,
                 message: "Role name too large"
             })
         }
         if (!name) {
+
             return res.status(400).json({
                 succes: false,
                 message: "Name can't be empty"
             })
         }
 
-        //Guardar datos en BD
-        const newUser = await User.create({
-            firstName: name
-        }).save();
+        // Tratar datos
+
+
+        // Actualizar datos
+        const userUpdated = await User.update(
+            {
+                id: userId
+            },
+            {
+                firstName: name
+            }
+        )
 
         //Response
         res.status(200).json(
             {
                 success: true,
-                message: "Roles updated succesfully"
+                message: "User updated succesfully"
             })
 
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "Can't update user",
             error: error
         })
     }
@@ -176,7 +203,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
     try {
         //Recuperar parametros de la ruta
         const name = req.params.id
-        console.log(req.params.id)
+
 
         //Validacion
         if (name.length > 50) {

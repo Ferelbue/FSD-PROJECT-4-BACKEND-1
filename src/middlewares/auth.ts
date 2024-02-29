@@ -22,10 +22,6 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
             process.env.JWT_SECRET as string
         )
    
-
-        console.log(decoded);
-
-
      req.tokenData = decoded as TokenData
 
      next();

@@ -1,12 +1,12 @@
 
 import express from "express";
-import { createRoles, deleteRoles, getRoles, updateRoles } from "./controllers/roleController";
 import { deleteUser, getUserByEmail, getUserProfile, getUsers, updateUserProfile, updateUserRole } from "./controllers/userController";
 import { createAppointment, getAllAppointment, getAppointment, updateAppointment } from "./controllers/appointmentController";
 import { createService, deleteService, getServices, updateService } from "./controllers/serviceController";
 import { login, register } from "./controllers/authController";
 import { auth } from "./middlewares/auth";
 import { isSuperAdmin } from "./middlewares/isSuperAdmin";
+import { isAdmin } from "./middlewares/isAdmin";
 
 export const app = express();
 
@@ -26,16 +26,16 @@ app.post('/api/auth/login', login) // DONE
 
 
 // USERS RUTES
-app.get('/api/users', getUsers) // Done
-app.get('/api/users/profile/:id', getUserProfile) // Done
-app.get('/api/users/:email', getUserByEmail) // Done pero no trae el role_id
-app.put('/api/users/profile', updateUserProfile)
-app.put('/api/users/:id/role ', updateUserRole)
-app.delete('/api/users/:id', deleteUser) // Done
+app.get('/api/users', auth, isAdmin, getUsers) // DONE
+app.get('/api/users/profile',auth, getUserProfile) // DONE
+app.get('/api/users', getUserByEmail) // 
+app.put('/api/users/profile', auth, isAdmin, updateUserProfile)
+app.put('/api/users/{id}/role ', updateUserRole)
+app.delete('/api/users/{id}', deleteUser) // Done
 
 // APPOINTMENTS RUTES
-app.get('/api/appointments/:id', getAppointment) // Inprogress me falta los id´s
-app.get('/api/appointments', auth, isSuperAdmin, getAllAppointment) // Done
+app.get('/api/appointments/:id', auth, isAdmin, getAppointment) // Inprogress me falta los id´s
+app.get('/api/appointments', auth, isAdmin, getAllAppointment) // Done
 app.post('/api/appointments', auth, isSuperAdmin, createAppointment) // Done
 app.put('/api/appointments/:id', auth, isSuperAdmin, updateAppointment) // Done
 

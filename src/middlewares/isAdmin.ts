@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
-export const isSuperAdmin = async (req: Request, res: Response, next: NextFunction) => {
+export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
         if(req.tokenData.roleName !== 'admin'){
