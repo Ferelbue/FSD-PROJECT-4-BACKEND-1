@@ -7,15 +7,22 @@ export const getUsers = async (req: Request, res: Response) => {
         //Consultar en base de datos
         const users = await User.find(
             {
+                relations: {
+                    role: true,
+                },
                 select: {
                     firstName: true,
                     lastName: true,
                     email: true,
-                    role: {id: true}                    
-                }
+                    role: {
+                        name: true
+                    }
+                },
             }
         )
-        console.log(users.role.id)
+
+
+        // console.log(users.role.id)
         res.status(200).json(
             {
                 success: true,
@@ -36,18 +43,34 @@ export const getUsers = async (req: Request, res: Response) => {
 //GET USER PROFILE
 export const getUserProfile = async (req: Request, res: Response) => {
     try {
-        const appointmentId = req.params.id;
+        const userId = req.params.id;
+        console.log(userId)
 
-        const appointment = await User.findOneBy(
+        const user = await User.findOne(
             {
-                id: parseInt(appointmentId)
+                where: {
+                        id: parseInt(userId)
+                }, // hasta aqui me devuelve todo el usuario sin las relaciones
+
+                relations: {
+                    role: true
+                },// hasta aqui me devuelve usuario con l¡toda la tabla de relaciones
+
+                select: {
+                    id: true,
+                    firstName: true,
+                    email: true,
+                    role: {
+                        name: true,
+                    }
+                }// Hasta aqui me trae lo que yo le especifico tanto en user como en la tabla de relacciones
             }
         )
 
-        if (!appointment) {
+        if (!user) {
             return res.status(404).json({
                 success: false,
-                message: "Appointment not found",
+                message: "User not found",
 
             })
 
@@ -56,59 +79,55 @@ export const getUserProfile = async (req: Request, res: Response) => {
         res.status(200).json(
             {
                 success: true,
-                message: "Appointment retrieved successfully",
-                data: appointment
+                message: "User retrieved successfully",
+                data: user
             }
         )
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Appointment cant be retrieved",
+            message: "User cant be retrieved",
             error: error
         })
     }
-
 }
+
 //GET USER PROFILE
 export const getUserByEmail = async (req: Request, res: Response) => {
     try {
-        // recuperar la info a traves del body
-        const name = req.body.name
+        const userEmail = req.params.email;
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
+        const user = await User.findOneBy(
+            {
+                email: userEmail
+            }
+        )
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found",
+
             })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
-            })
+
         }
 
-        //Guardar datos en BD
-        const newUser = await User.create({
-            firstName: name
-        }).save();
-
-        //Response
         res.status(200).json(
             {
                 success: true,
-                message: "Roles retrieve succesfully"
-            })
-
+                message: "User retrieved successfully",
+                data: user
+            }
+        )
     } catch (error) {
         res.status(500).json({
             success: false,
-            message: "Can't create rol",
+            message: "User cant be retrieved",
             error: error
         })
     }
 }
+
 
 //MODIFY USER PROFILE
 export const updateUserProfile = async (req: Request, res: Response) => {
@@ -197,41 +216,30 @@ export const updateUserRole = async (req: Request, res: Response) => {
 //DELETE USER
 export const deleteUser = async (req: Request, res: Response) => {
     try {
-        //Recuperar parametros de la ruta
-        const name = req.body.id
+        const userId = req.params.id
 
-        //Validacion
-        if (name.length > 50) {
-            return res.status(400).json({
-                succes: false,
-                message: "Role name too large"
-            })
-        }
-        if (!name) {
-            return res.status(400).json({
-                succes: false,
-                message: "Name can't be empty"
+        const user = await User.findOneBy({
+            id: parseInt(userId)
+        })
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found"
             })
         }
 
-        //Guardar datos en BD
-        const newUser = await User.create({
-            firstName: name
-        }).save();
+        const userDeleted = await User.remove(user)
 
-        //Response
-        res.status(200).json(
-            {
-                success: true,
-                message: "Roles updated succesfully"
-            })
-
+        return res.status(200).json({
+            success: true,
+            message: "User deleted successfully",
+            data: userDeleted
+        })
     } catch (error) {
-        res.status(200).json(
-            {
-                success: true,
-                message: "Roles deleted succesfully"
-            })
+        return res.status(500).json({
+            success: false,
+            message: "User can't be deleted",
+            error: error
+        })
     }
 }
-

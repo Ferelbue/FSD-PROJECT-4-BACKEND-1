@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../models/User";
+import jwt from "jsonwebtoken";
 
 // CREATE USERS
 export const register = async (req: Request, res: Response) => {
@@ -12,7 +13,6 @@ export const register = async (req: Request, res: Response) => {
         const email = req.body.email;
         const passwordHash = req.body.password;
         const roleId = req.body.roleId;
-        // const { email, password } = req.body
 
         //validacion password
         if (passwordHash.length < 6 || passwordHash.length > 10) {
@@ -38,7 +38,7 @@ export const register = async (req: Request, res: Response) => {
         const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
         //comprobamos que se genera la contraseña encryptada
         console.log(passwordEncrypted)
-        // introducimos en base de datos
+
         const newUser = await User.create({
             firstName: firstName,
             lastName: lastName,
@@ -47,7 +47,6 @@ export const register = async (req: Request, res: Response) => {
             role: {
                 id: roleId
             }
-            //roleID:2  //dos opciones de meter el rol, dependiendo de si usamos @column @joincolumn
         }).save()
 
 
@@ -72,97 +71,96 @@ export const register = async (req: Request, res: Response) => {
 // CREATE LOGIN
 export const login = async (req: Request, res: Response) => {
 
-    // try {
-    //     const email = req.body.email;
-    //     const passwordHash = req.body.password;
+    try {
 
-        
+        //Recuperar la info
+        const email = req.body.email;
+        const password = req.body.password;
 
-    //     const getUserByEmail = async (req: Request, res: Response) => {
-    //         try {
-    //             const userEmail = req.body.email;
+        //Validadicon de email y password
+        if (!email || !password) {
+            console.log(2)
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are needed"
+                
+            })
+        }
 
-    //             const user = await User.findOneBy(
-    //                 {
-    //                     email: email
-    //                 }
-    //             )
+        // Validar formato email
+        const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+        if (!validEmail.test(email)) {
+            return res.status(400).json(
+                {
+                    success: false,
+                    message: "format email invalid"
+                }
+            )
+        }
+     
+        // buscar usuario en BD
+        const user = await User.findOne(
+            {
+                where: {
+                    email: email,
+                },
+                relations: {
+                    role: true
+                },
+                select: {
+                    id: true,
+                    passwordHash: true,
+                    email: true,
+                    role: {
+                        id: true,
+                        name: true,
+                    }
+                }
+            }
+        )
 
-    //             if (!user) {
-    //                 return res.status(404).json({
-    //                     success: false,
-    //                     message: "User not found",
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Email or password invalid",
+            })
+        }
+  
+        // Comparo contraseñas
+        const invalidPassword = bcrypt.compareSync(password, user.passwordHash)
 
-    //                 })
+        if (!invalidPassword) {
+            return res.status(401).json({
+                success: false,
+                message: "Email or password invalid",
+            })
+        }
 
-    //             }
+        //create TOKEN
+        const token = jwt.sign(
+            {
+                userId: user.id,
+                roleName: user.role.name
+            },
+            process.env.JWT_SECRET as string,
+            {
+                expiresIn: "2h"
+            }
+        )
 
-    //             res.status(200).json(
-    //                 {
-    //                     success: true,
-    //                     message: "User retrieved successfully",
-    //                     data: user
-    //                 }
-    //             )
-    //         } catch (error) {
-    //             res.status(500).json({
-    //                 success: false,
-    //                 message: "User cant be retrieved",
-    //                 error: error
-    //             })
-    //         }
-    //         app.get('/api/user/', getUserByEmail);
-    //         //validacion password
-    //         if (passwordHash.length < 6 || passwordHash.length > 10) {
-    //             return res.status(400).json({
-    //                 success: false,
-    //                 message: "Incorrect password, min 6 max 10 characters"
-    //             })
+        res.status(200).json({
+            success: true,
+            message: "User logged",
+            data: user,
+            token: token
+        })
 
-    //         }
-
-    //         //validacion email
-
-    //         if (bcrypt.compare(passwordHash,)) {
-    //             return res.status(400).json(
-    //                 {
-    //                     success: false,
-    //                     message: "format email invalid"
-    //                 }
-    //             )
-    //         }
-
-    //         // tratamos la data si fuese necesario 
-    //         const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
-    //         //comprobamos que se genera la contraseña encryptada
-    //         console.log(passwordEncrypted)
-
-    //         const newUser = await User.create({
-    //             firstName: firstName,
-    //             lastName: lastName,
-    //             email: email,
-    //             passwordHash: passwordEncrypted,
-    //             role: {
-    //                 id: roleId
-    //             }
-    //             //roleID:2  //dos opciones de meter el rol, dependiendo de si usamos @column @joincolumn
-    //         }).save()
-
-
-
-
-    //         res.status(201).json(
-    //             {
-    //                 success: false,
-    //                 message: "User registered successfully"
-    //             }
-    //         )
-
-    //     } catch (error) {
-    //         res.status(500).json({
-    //             success: false,
-    //             message: "User cant be created",
-    //             error: error
-    //         })
-    //     }
+    } catch (error) {
+        res.status(401).json({
+            success: false,
+            message: "User cant be logged",
+            error: error
+        })
     }
+}
+

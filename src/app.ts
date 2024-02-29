@@ -5,37 +5,39 @@ import { deleteUser, getUserByEmail, getUserProfile, getUsers, updateUserProfile
 import { createAppointment, getAllAppointment, getAppointment, updateAppointment } from "./controllers/appointmentController";
 import { createService, deleteService, getServices, updateService } from "./controllers/serviceController";
 import { login, register } from "./controllers/authController";
+import { auth } from "./middlewares/auth";
+import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 
 export const app = express();
 
 app.use(express.json());
 
-app.get('/healthy', (req,res) => {
+app.get('/healthy', (req, res) => {
     res.status(200).json(
-    {
-        success: true,
-        message: "Server is healthy"
-    })
+        {
+            success: true,
+            message: "Server is healthy"
+        })
 })
 
 // AUTH ROUTES
-app.post('/api/auth/register', register) // Done
-app.post('/api/auth/login', login)
+app.post('/api/auth/register', register) // DONE
+app.post('/api/auth/login', login) // DONE
 
 
 // USERS RUTES
-app.get('/api/users', getUsers) // Inprogress me falta el id 
-app.get('/api/users/profile/:id', getUserProfile) 
-app.get('/api/users/:email', getUserByEmail)
+app.get('/api/users', getUsers) // Done
+app.get('/api/users/profile/:id', getUserProfile) // Done
+app.get('/api/users/:email', getUserByEmail) // Done pero no trae el role_id
 app.put('/api/users/profile', updateUserProfile)
 app.put('/api/users/:id/role ', updateUserRole)
-app.delete('/api/users/:id:', deleteUser)
+app.delete('/api/users/:id', deleteUser) // Done
 
 // APPOINTMENTS RUTES
-app.get('/api/appointments/:id', getAppointment) // Inprogress me falta el id 
-app.get('/api/appointments', getAllAppointment) // Done
-app.post('/api/appointments', createAppointment) // Done
-app.put('/api/appointments/:id', updateAppointment) // Done
+app.get('/api/appointments/:id', getAppointment) // Inprogress me falta los id´s
+app.get('/api/appointments', auth, isSuperAdmin, getAllAppointment) // Done
+app.post('/api/appointments', auth, isSuperAdmin, createAppointment) // Done
+app.put('/api/appointments/:id', auth, isSuperAdmin, updateAppointment) // Done
 
 // SERVICES RUTES
 app.get('/api/services', getServices) //Done
