@@ -29,15 +29,15 @@ app.post('/api/auth/login', login) // DONE
 app.get('/api/users', auth, isAdmin, getUsers) // DONE
 app.get('/api/users/profile',auth, getUserProfile) // DONE
 app.get('/api/users', getUserByEmail) // 
-app.put('/api/users/profile', auth, isAdmin, updateUserProfile)
+app.put('/api/users/profile', auth, updateUserProfile) // DONE
 app.put('/api/users/{id}/role ', updateUserRole)
 app.delete('/api/users/{id}', deleteUser) // Done
 
 // APPOINTMENTS RUTES
-app.get('/api/appointments/:id', auth, isAdmin, getAppointment) // Inprogress me falta los id´s
-app.get('/api/appointments', auth, isAdmin, getAllAppointment) // Done
-app.post('/api/appointments', auth, isSuperAdmin, createAppointment) // Done
-app.put('/api/appointments/:id', auth, isSuperAdmin, updateAppointment) // Done
+app.get('/api/appointments/{id}', auth, isAdmin, getAppointment) // Inprogress me falta los id´s
+app.get('/api/appointments', auth, getAllAppointment) // DONE
+app.post('/api/appointments', auth, isAdmin, createAppointment) // DONE
+app.put('/api/appointments', auth, isSuperAdmin, updateAppointment) // Done
 
 // SERVICES RUTES
 app.get('/api/services', getServices) //Done

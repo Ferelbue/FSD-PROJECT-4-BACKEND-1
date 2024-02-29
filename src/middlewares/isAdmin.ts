@@ -3,7 +3,7 @@ import { NextFunction, Request, Response } from "express";
 export const isAdmin = async (req: Request, res: Response, next: NextFunction) => {
 
     try {
-        if(req.tokenData.roleName !== 'admin'){
+        if(req.tokenData.roleName !== 'admin' && req.tokenData.roleName !== 'super-admin'){
         return res.status(401).json(
             {
                 success: false,

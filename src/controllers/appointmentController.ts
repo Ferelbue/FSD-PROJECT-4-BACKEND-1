@@ -5,15 +5,19 @@ import { Appointment } from "../models/Appointment"
 //GET ONE USER APPOINTMENT
 export const getAppointment = async (req: Request, res: Response) => {
     try {
-        const appointmentId = req.params.id;
+        const userId = req.tokenData.userId
 
-        const appointment = await Appointment.findOneBy(
+        const appointments = await Appointment.find(
             {
-                id: parseInt(appointmentId)
+                where: {
+                        id: userId
+                }, 
+
             }
+
         )
 
-        if (!appointment) {
+        if (!appointments) {
             return res.status(404).json({
                 success: false,
                 message: "Appointment not found",
@@ -26,7 +30,7 @@ export const getAppointment = async (req: Request, res: Response) => {
             {
                 success: true,
                 message: "Appointment retrieved successfully",
-                data: appointment
+                data: appointments
             }
         )
     } catch (error) {
@@ -42,9 +46,16 @@ export const getAppointment = async (req: Request, res: Response) => {
 //GET ALL USER APPOINTMENT
 export const getAllAppointment = async (req: Request, res: Response) => {
     try {
+        const userId = req.tokenData.userId
         //Consultar en base de datos
         const appointments = await Appointment.find(
             {
+                where: {
+                        user:{id: userId}
+                }, 
+                relations: {
+                    user: true
+                },
                 select: {
                     id: true,
                     appointmentDate: true,
@@ -58,7 +69,6 @@ export const getAllAppointment = async (req: Request, res: Response) => {
             }
 
         )
-        console.log("hola")
 
         res.status(200).json(
             {
@@ -114,43 +124,48 @@ export const createAppointment = async (req: Request, res: Response) => {
 //MODIFY APPOINTMENT
 export const updateAppointment = async (req: Request, res: Response) => {
     try {
-        const appointmentId = req.params.id;
+
+        const userId = req.tokenData.userId
         const appointmentDate = req.body.appointmentDate;
-        const userId = req.body.user.id;
         const serviceId = req.body.service.id;
-
-        // //Validar datos
-        // const user = await Appointment.findOneBy(
-        //     {
-        //         id: parseInt(userId)
-        //     }
-        // )
-
-        // if (!user) {
-        //     return res.status(404).json({
-        //         success: false,
-        //         message: "User not found",
-
-        //     })
-
-        // }
-
-        // Tratar datos
-
-
 
         // Actualizar datos
         const appointmentUpdated = await Appointment.update(
             {
-                id: parseInt(appointmentId)
+                // id: parseInt(appointmentId)
             },
             {
-                 appointmentDate: appointmentDate,
-                 user: {id: userId},
-                 service: {id: serviceId}
+                appointmentDate: appointmentDate,
+                user: { id: userId },
+                service: { id: serviceId }
 
             }
         )
+
+        const appointments = await Appointment.find(
+            {
+                where: {
+                        user:{id: userId}
+                }, 
+                relations: {
+                    user: true
+                },
+                select: {
+                    id: true,
+                    appointmentDate: true,
+                    user: {
+                        id: true,
+                    },
+                    service: {
+                        id: true,
+                    }
+                }
+            }
+
+        )
+
+
+
 
 
 
