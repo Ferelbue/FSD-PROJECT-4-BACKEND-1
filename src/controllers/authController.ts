@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export const register = async (req: Request, res: Response) => {
 
     try {
-
+        //Recuperar datos
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
         const email = req.body.email;
@@ -36,9 +36,11 @@ export const register = async (req: Request, res: Response) => {
 
         // tratamos la data si fuese necesario 
         const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
+
         //comprobamos que se genera la contraseña encryptada
         console.log(passwordEncrypted)
 
+        // Guardar en BD
         const newUser = await User.create({
             firstName: firstName,
             lastName: lastName,
@@ -49,9 +51,7 @@ export const register = async (req: Request, res: Response) => {
             }
         }).save()
 
-
-
-
+        // Responder
         res.status(201).json(
             {
                 success: false,
@@ -83,7 +83,7 @@ export const login = async (req: Request, res: Response) => {
             return res.status(400).json({
                 success: false,
                 message: "Email and password are needed"
-                
+
             })
         }
 
@@ -97,7 +97,8 @@ export const login = async (req: Request, res: Response) => {
                 }
             )
         }
-     
+
+        // Tratar datos
         // buscar usuario en BD
         const user = await User.findOne(
             {
@@ -125,7 +126,7 @@ export const login = async (req: Request, res: Response) => {
                 message: "Email or password invalid",
             })
         }
-  
+
         // Comparo contraseñas
         const invalidPassword = bcrypt.compareSync(password, user.passwordHash)
 
@@ -136,7 +137,7 @@ export const login = async (req: Request, res: Response) => {
             })
         }
 
-        //create TOKEN
+        //CREATE TOKEN
         const token = jwt.sign(
             {
                 userId: user.id,
@@ -148,6 +149,7 @@ export const login = async (req: Request, res: Response) => {
             }
         )
 
+        // responder
         res.status(200).json({
             success: true,
             message: "User logged",
