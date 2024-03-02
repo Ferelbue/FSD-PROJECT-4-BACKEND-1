@@ -26,21 +26,21 @@ app.post('/api/auth/login', login) // DONE
 
 
 // USERS RUTES
-app.get('/api/users', auth, isAdmin, getUsers) // DONE
-app.get('/api/users/profile',auth, getUserProfile) // DONE
-/*X*/app.get('/api/users', getUserByEmail) // 
-app.put('/api/users/profile', auth, updateUserProfile) // DONE
-/*X*/app.put('/api/users/:id/role ', updateUserRole)
-/*X*/app.delete('/api/users/:id', deleteUser) // Done
+/*X*/app.get('/api/users', auth, isSuperAdmin, getUserByEmail) // DONE
+app.get('/api/users', auth, isSuperAdmin, getUsers) // DONE
+app.get('/api/users/profile', auth, getUserProfile) // DONE
+app.put('/api/users/profile', auth, updateUserProfile) // INPROGRESS
+/*X*/app.put('/api/users/:id/role', auth, isSuperAdmin, updateUserRole) // DONE
+/*X*/app.delete('/api/users/:id', auth, isSuperAdmin, deleteUser) // DONE
 
-// APPOINTMENTS RUTES
-app.get('/api/appointments/:id', auth, isAdmin, getAppointment) // Inprogress me falta los id´s
-app.get('/api/appointments', auth, getAllAppointment) // DONE
+// APPOINTMENTS RUTES 
+app.get('/api/appointments', auth, getAllAppointment) // DONE TODAS LAS CITAS DE UN USUARIO 
+app.get('/api/appointments/:id', auth, getAppointment) // DONE UNA CITA DICIENDO ID DE LA CITA
 app.post('/api/appointments', auth, isAdmin, createAppointment) // DONE
-app.put('/api/appointments', auth, isSuperAdmin, updateAppointment) // Done
+app.put('/api/appointments', auth, isAdmin, updateAppointment) // DONE LE PASAS EL ID DE LA CITA QUE QUIERES MODIFICAR, LA NUEVA FECHA Y LA HORA
 
 // SERVICES RUTES
 app.get('/api/services', getServices) //Done
-/*X*/app.post('/api/services', createService) //Done
-/*X*/app.put('/api/services/:id', updateService) //Done
-/*X*/app.delete('/api/services/:id', deleteService) //Done
+/*X*/app.post('/api/services', auth, isSuperAdmin, createService) //Done
+/*X*/app.put('/api/services/:id', auth, isSuperAdmin, updateService) //Done
+/*X*/app.delete('/api/services/:id', auth, isSuperAdmin, deleteService) //Done

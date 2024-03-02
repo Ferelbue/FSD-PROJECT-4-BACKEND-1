@@ -4,28 +4,44 @@ import { Appointment } from "../models/Appointment"
 
 //GET ONE USER APPOINTMENT
 export const getAppointment = async (req: Request, res: Response) => {
+    
     try {
-        const userId = req.tokenData.userId
-
+        //RECUPERAR DATOS
+        const appointmentId = req.params.id
+        
+        //Consultar y recuperar de la DB
         const appointments = await Appointment.find(
             {
                 where: {
-                        id: userId
-                }, 
-
+                    id: parseInt(appointmentId)
+                },
+                relations: {
+                    user: true,
+                    service: true
+                },
+                select: {
+                    id: true,
+                    appointmentDate: true,
+                    user: {
+                        id: true,
+                    },
+                    service: {
+                        id: true,
+                    }
+                }
             }
+            )
 
-        )
-
+        // VALIDAR
         if (!appointments) {
             return res.status(404).json({
                 success: false,
                 message: "Appointment not found",
 
             })
-
         }
 
+        // RESPONDER
         res.status(200).json(
             {
                 success: true,
@@ -46,13 +62,15 @@ export const getAppointment = async (req: Request, res: Response) => {
 //GET ALL USER APPOINTMENT
 export const getAllAppointment = async (req: Request, res: Response) => {
     try {
+        // Recuperar datos
         const userId = req.tokenData.userId
-        //Consultar en base de datos
+
+        //Consultar y recuperar en la DB
         const appointments = await Appointment.find(
             {
                 where: {
-                        user:{id: userId}
-                }, 
+                    user: { id: userId }
+                },
                 relations: {
                     user: true
                 },
@@ -67,9 +85,9 @@ export const getAllAppointment = async (req: Request, res: Response) => {
                     }
                 }
             }
-
         )
 
+        // Responder
         res.status(200).json(
             {
                 success: true,
@@ -90,11 +108,23 @@ export const getAllAppointment = async (req: Request, res: Response) => {
 // CREATE APPOINTMENT
 export const createAppointment = async (req: Request, res: Response) => {
     try {
-
+        // Recuperar datos
         const appointmentDate = req.body.appointmentDate;
         const userId = req.body.user.id;
         const serviceId = req.body.service.id;
 
+        // VALIDAR DATOS
+        const regexDate = /^\d{4}-\d{2}-\d{2}$/;
+        const dateOk = regexDate.test(appointmentDate);
+
+        if(dateOk === false){
+            return res.status(404).json({
+                success: false,
+                message: "Incorrect Date (YYYY-MM-DD)",
+            })
+        }
+
+        //Guardar en DB
         const newAppointment = await Appointment.create({
             appointmentDate: appointmentDate,
             user: {
@@ -104,7 +134,8 @@ export const createAppointment = async (req: Request, res: Response) => {
                 id: serviceId
             }
         }).save()
-        console.log("hola")
+
+        //Responder
         res.status(201).json(
             {
                 success: false,
@@ -124,15 +155,30 @@ export const createAppointment = async (req: Request, res: Response) => {
 //MODIFY APPOINTMENT
 export const updateAppointment = async (req: Request, res: Response) => {
     try {
-
+        // Recuperar datos
         const userId = req.tokenData.userId
-        const appointmentDate = req.body.appointmentDate;
-        const serviceId = req.body.service.id;
+        const appointmentDate = req.body.newAppointmentDate;
+        const serviceId = req.body.newService.id;
+        const appointmentId = req.body.appointmentIdToModify;
+
+        // VALIDAR DATOS
+        const regexDate = /^\d{4}-\d{2}-\d{2}$/;
+        const dateOk = regexDate.test(appointmentDate);
+        console.log(dateOk);
+        
+        if(dateOk === false){
+            return res.status(404).json({
+                success: false,
+                message: "Incorrect Date (YYYY-MM-DD)",
+            })
+        }
+
 
         // Actualizar datos
         const appointmentUpdated = await Appointment.update(
             {
-                // id: parseInt(appointmentId)
+                id: parseInt(appointmentId),
+                user: {id: userId},
             },
             {
                 appointmentDate: appointmentDate,
@@ -142,11 +188,12 @@ export const updateAppointment = async (req: Request, res: Response) => {
             }
         )
 
+        //Consultar y recuperar
         const appointments = await Appointment.find(
             {
                 where: {
-                        user:{id: userId}
-                }, 
+                    user: { id: userId }
+                },
                 relations: {
                     user: true
                 },
@@ -161,14 +208,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
                     }
                 }
             }
-
         )
-
-
-
-
-
-
 
         // Responder
         res.status(200).json(

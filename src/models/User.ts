@@ -16,12 +16,12 @@ export class User extends BaseEntity{
 
     @Column({ name: 'email' })
     email!: string
-
-    @Column({ name: 'role_id' }) // otra forma de recuperar el ID 
-    roleId!: string
     
     @Column({ name: 'password_hash' })
     passwordHash!: string
+
+    @Column({ name: 'role_id' }) // otra forma de recuperar el ID 
+    roleId!: string
 
     @ManyToOne(() => Role, (role) => role.users)
     @JoinColumn({ name: "role_id" })
