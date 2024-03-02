@@ -158,15 +158,19 @@ export const getUserByEmail = async (req: Request, res: Response) => {
 export const updateUserProfile = async (req: Request, res: Response) => {
     try {
         //RECUPERAR DATOS
-        const name = req.body.name
+        let firstName = req.body.firstName
+        let lastName = req.body.lastName
+        let email = req.body.email
         const userId = req.tokenData.userId
-
+        console.log(1)
         const user = await User.findOneBy(
             {
                 id: userId
             }
         )
-
+        console.log(user!.firstName)
+        console.log(user!.lastName)
+        console.log(user!.email)
         //VALIDAR
         if (!user) {
             return res.status(404).json({
@@ -177,19 +181,50 @@ export const updateUserProfile = async (req: Request, res: Response) => {
 
         }
 
-        if (name.length > 50) {
+        if (!firstName && !lastName && !email) {
 
             return res.status(400).json({
                 succes: false,
-                message: "Role name too large"
+                message: "Data can't be empty"
             })
         }
-        if (!name) {
+
+        if(!firstName){
+            firstName = user!.firstName
+        }
+        console.log(2)
+        if(!lastName){
+            lastName = user!.lastName
+        }
+        if(!email){
+            email = user!.email
+        }
+
+        if (firstName.length > 50) {
 
             return res.status(400).json({
                 succes: false,
-                message: "Name can't be empty"
+                message: "First name too large"
             })
+        }
+
+        if (lastName.length > 50) {
+
+            return res.status(400).json({
+                succes: false,
+                message: "Last name too large"
+            })
+        }
+
+        //validacion email
+        const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+        if (!validEmail.test(email)) {
+            return res.status(401).json(
+                {
+                    success: false,
+                    message: "Email format invalid"
+                }
+            )
         }
 
         // Actualizar datos
@@ -198,7 +233,9 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                 id: userId
             },
             {
-                firstName: name
+                firstName: firstName,
+                lastName: lastName,
+                email: email
             }
         )
 
@@ -276,7 +313,7 @@ export const deleteUser = async (req: Request, res: Response) => {
         if (!user) {
             return res.status(404).json({
                 success: false,
-                message: "User not found"
+                message: "USER NOT FOUND"
             })
         }
 
@@ -286,14 +323,14 @@ export const deleteUser = async (req: Request, res: Response) => {
         // RESPONDER
         return res.status(200).json({
             success: true,
-            message: "User deleted successfully",
+            message: "USER DELETED SUCCESSFULLY",
             data: userDeleted
         })
 
     } catch (error) {
         return res.status(500).json({
             success: false,
-            message: "User can't be deleted",
+            message: "USER CAN'T BE DELETED",
             error: error
         })
     }

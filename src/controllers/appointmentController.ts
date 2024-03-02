@@ -164,7 +164,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
         // VALIDAR DATOS
         const regexDate = /^\d{4}-\d{2}-\d{2}$/;
         const dateOk = regexDate.test(appointmentDate);
-        console.log(dateOk);
+        console.log(1);
         
         if(dateOk === false){
             return res.status(404).json({
@@ -173,7 +173,39 @@ export const updateAppointment = async (req: Request, res: Response) => {
             })
         }
 
+        //Consultar y recuperar
+        const appointment = await Appointment.findOne(
+            {
+                where: {
+                    id: appointmentId
+                },
+                relations: {
+                    user: true,
+                    service: true
+                },
+                select: {
+                    id: true,
+                    appointmentDate: true,
+                    user: {
+                        id: true,
+                    },
+                    service: {
+                        id: true,
+                    }
+                }
+            }
+        )
+        console.log(appointment);
 
+        if(appointment!.user.id !== userId){
+            return res.status(404).json({
+                success: false,
+                message: "Can't modify someone else appointment",
+            })
+
+        }
+
+        console.log(3);
         // Actualizar datos
         const appointmentUpdated = await Appointment.update(
             {

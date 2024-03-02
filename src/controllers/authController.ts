@@ -16,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
 
         //validacion password
         if (passwordHash.length < 6 || passwordHash.length > 10) {
-            return res.status(400).json({
+            return res.status(401).json({
                 success: false,
                 message: "Incorrect password, min 6 max 10 characters"
             })
@@ -26,19 +26,25 @@ export const register = async (req: Request, res: Response) => {
         //validacion email
         const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
         if (!validEmail.test(email)) {
-            return res.status(400).json(
+            return res.status(401).json(
                 {
                     success: false,
-                    message: "format email invalid"
+                    message: "email format invalid"
                 }
             )
         }
 
-        // tratamos la data si fuese necesario 
-        const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
+        const exist = await User.findOne(
+            {
+                where: {
+                    email: email,
+                }
+            }
+        )
 
-        //comprobamos que se genera la contraseña encryptada
-        console.log(passwordEncrypted)
+        if(!exist){
+        // tratamos la data 
+        const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
 
         // Guardar en BD
         const newUser = await User.create({
@@ -46,21 +52,27 @@ export const register = async (req: Request, res: Response) => {
             lastName: lastName,
             email: email,
             passwordHash: passwordEncrypted,
-            role: {
-                id: roleId
-            }
+            // role: {
+            //     id: roleId
+            // }
         }).save()
 
         // Responder
-        res.status(201).json(
+       return res.status(201).json(
             {
                 success: false,
                 message: "User registered successfully"
             }
         )
+        }
+
+       return res.status(406).json({
+            success: false,
+            message: "Email already registered"
+        })
 
     } catch (error) {
-        res.status(500).json({
+        res.status(406).json({
             success: false,
             message: "User cant be created",
             error: error
@@ -79,8 +91,7 @@ export const login = async (req: Request, res: Response) => {
 
         //Validadicon de email y password
         if (!email || !password) {
-            console.log(2)
-            return res.status(400).json({
+            return res.status(401).json({
                 success: false,
                 message: "Email and password are needed"
 
@@ -90,7 +101,7 @@ export const login = async (req: Request, res: Response) => {
         // Validar formato email
         const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
         if (!validEmail.test(email)) {
-            return res.status(400).json(
+            return res.status(401).json(
                 {
                     success: false,
                     message: "format email invalid"
@@ -150,7 +161,7 @@ export const login = async (req: Request, res: Response) => {
         )
 
         // responder
-        res.status(200).json({
+        res.status(202).json({
             success: true,
             message: "User logged",
             data: user,

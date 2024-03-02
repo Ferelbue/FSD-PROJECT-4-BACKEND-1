@@ -21,15 +21,15 @@ app.get('/healthy', (req, res) => {
 })
 
 // AUTH ROUTES
-app.post('/api/auth/register', register) // DONE
-app.post('/api/auth/login', login) // DONE
+app.post('/api/auth/register', register) // DONE DONE
+app.post('/api/auth/login', login) // DONE DONE
 
 
 // USERS RUTES
 /*X*/app.get('/api/users', auth, isSuperAdmin, getUserByEmail) // DONE
 app.get('/api/users', auth, isSuperAdmin, getUsers) // DONE
 app.get('/api/users/profile', auth, getUserProfile) // DONE
-app.put('/api/users/profile', auth, updateUserProfile) // INPROGRESS
+app.put('/api/users/profile', auth, updateUserProfile) // DONE puede modificar su nombre, apellido y email.
 /*X*/app.put('/api/users/:id/role', auth, isSuperAdmin, updateUserRole) // DONE
 /*X*/app.delete('/api/users/:id', auth, isSuperAdmin, deleteUser) // DONE
 
@@ -37,7 +37,7 @@ app.put('/api/users/profile', auth, updateUserProfile) // INPROGRESS
 app.get('/api/appointments', auth, getAllAppointment) // DONE TODAS LAS CITAS DE UN USUARIO 
 app.get('/api/appointments/:id', auth, getAppointment) // DONE UNA CITA DICIENDO ID DE LA CITA
 app.post('/api/appointments', auth, isAdmin, createAppointment) // DONE
-app.put('/api/appointments', auth, isAdmin, updateAppointment) // DONE LE PASAS EL ID DE LA CITA QUE QUIERES MODIFICAR, LA NUEVA FECHA Y LA HORA
+app.put('/api/appointments', auth, updateAppointment) // DONE LE PASAS EL ID DE LA CITA QUE QUIERES MODIFICAR, LA NUEVA FECHA Y LA HORA
 
 // SERVICES RUTES
 app.get('/api/services', getServices) //Done

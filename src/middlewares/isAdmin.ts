@@ -18,7 +18,7 @@ export const isAdmin = async (req: Request, res: Response, next: NextFunction) =
         return res.status(500).json(
             {
                 success: false,
-                message: "You dont have permitions",
+                message: "YOU DONT HAVE PERMITIONS",
             }
         )
     }
