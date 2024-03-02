@@ -16,14 +16,17 @@ export class Appointments1709246239165 implements MigrationInterface {
                     {
                         name: "appointment_date",
                         type: "DATE",
+                        isNullable: false,
                     },
                     {
                         name: "user_id",
                         type: "int",
+                        isNullable: false,
                     },
                     {
                         name: "service_id",
                         type: "int",
+                        isNullable: false,
                     },
                 ],
                 foreignKeys: [

@@ -2,7 +2,7 @@ import { Role } from "../../models/Role";
 import { AppDataSource } from "../db";
 
 
-const roleSeedDatabase = async () => {
+export const roleSeedDatabase = async () => {
     try {
         await AppDataSource.initialize();
 
@@ -33,4 +33,5 @@ const roleSeedDatabase = async () => {
     }
 }
 
-roleSeedDatabase();
+
+

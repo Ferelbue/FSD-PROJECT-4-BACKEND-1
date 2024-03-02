@@ -2,7 +2,7 @@
 import { User } from "../../models/User";
 import { AppDataSource } from "../db";
 
-const serviceSeedDatabase = async () => {
+export const userSeedDatabase = async () => {
     try {
         await AppDataSource.initialize();
 
@@ -108,6 +108,5 @@ const serviceSeedDatabase = async () => {
     }
 }
 
-serviceSeedDatabase();
 
 
