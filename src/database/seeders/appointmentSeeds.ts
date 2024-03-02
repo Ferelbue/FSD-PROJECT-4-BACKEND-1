@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker';
-
 import { AppDataSource } from '../db';
 import { Appointment } from '../../models/Appointment';
 
@@ -9,15 +8,15 @@ const generateFakeService = async () => {
     try {
         await AppDataSource.initialize();
 
-        const appointment = Appointment.create();
-        appointment.appointmentDate = faker.datatype.date();
-        appointment.user.id = faker.datatype.number({ min: 1, max: 20 });
-
+        const fechaString = faker.date.between({ from: '2024-01-01', to: '2025-01-01' });
+        const fecha = new Date(fechaString);
+    
+        const appointment = Appointment.create({
+            appointmentDate: fecha,
+            user: { id: faker.number.int({ min: 31, max: 39 }) },
+            service: { id: faker.number.int({ min: 50, max: 55 }) }
+        })
         await appointment.save();
-
-        console.log("---------------------------------------")
-        console.log("++++++++++ CITAS CREADAS (50) +++++++++")
-        console.log("---------------------------------------")
 
     } catch (error) {
         console.error(error);
@@ -32,6 +31,11 @@ export const generateFakeServices = async (quantity: number) => {
     for (let i = 0; i < quantity; i++) {
         await generateFakeService();
     }
+
+    console.log("---------------------------------------")
+    console.log("++++++++++ CITAS CREADAS (50) +++++++++")
+    console.log("---------------------------------------")
+
 }
 
-generateFakeServices(5);
+generateFakeServices(50);
