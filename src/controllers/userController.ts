@@ -192,7 +192,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         if(!firstName){
             firstName = user!.firstName
         }
-        console.log(2)
+
         if(!lastName){
             lastName = user!.lastName
         }

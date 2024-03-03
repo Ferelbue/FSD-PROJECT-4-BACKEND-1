@@ -34,10 +34,10 @@ app.put('/api/users/profile', auth, updateUserProfile) // DONE puede modificar s
 /*X*/app.delete('/api/users/:id', auth, isSuperAdmin, deleteUser) // DONE
 
 // APPOINTMENTS RUTES 
-app.get('/api/appointments', auth, getAllAppointment) // DONE TODAS LAS CITAS DE UN USUARIO 
-app.get('/api/appointments/:id', auth, getAppointment) // DONE UNA CITA DICIENDO ID DE LA CITA
+app.get('/api/appointments', auth, getAllAppointment) // DONE TODAS LAS CITAS DEL USUARIO REGISTRADO 
+app.get('/api/appointments/:id', auth, getAppointment) // DONE UNA CITA DICIENDO ID DE LA CITA Un user solo puede ver sus citas. Admin o super las citas de todos (una a una)
 app.post('/api/appointments', auth, isAdmin, createAppointment) // DONE
-app.put('/api/appointments', auth, updateAppointment) // DONE LE PASAS EL ID DE LA CITA QUE QUIERES MODIFICAR, LA NUEVA FECHA Y LA HORA
+app.put('/api/appointments', auth, updateAppointment) // DONE LE PASAS EL ID DE LA CITA QUE QUIERES MODIFICAR, LA NUEVA FECHA Y LA HORA. Un usuario solo puede modificar sus citas. Un admin y un super pueden modificar las todas las citas.
 
 // SERVICES RUTES
 app.get('/api/services', getServices) //Done

@@ -8,9 +8,11 @@ export const getAppointment = async (req: Request, res: Response) => {
     try {
         //RECUPERAR DATOS
         const appointmentId = req.params.id
-        
+        const userId = req.tokenData.userId
+        const roleName = req.tokenData.roleName
+
         //Consultar y recuperar de la DB
-        const appointments = await Appointment.find(
+        const appointments = await Appointment.findOne(
             {
                 where: {
                     id: parseInt(appointmentId)
@@ -40,6 +42,15 @@ export const getAppointment = async (req: Request, res: Response) => {
 
             })
         }
+
+        if((userId !== appointments.user.id) && ((roleName !== "super-admin")&&(roleName !== "admin"))){
+            return res.status(404).json({
+                success: false,
+                message: "Can't retrieve someone else appointment",
+            })
+        }
+
+
 
         // RESPONDER
         res.status(200).json(
@@ -157,6 +168,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
     try {
         // Recuperar datos
         const userId = req.tokenData.userId
+        const roleName = req.tokenData.roleName
         const appointmentDate = req.body.newAppointmentDate;
         const serviceId = req.body.newService.id;
         const appointmentId = req.body.appointmentIdToModify;
@@ -164,8 +176,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
         // VALIDAR DATOS
         const regexDate = /^\d{4}-\d{2}-\d{2}$/;
         const dateOk = regexDate.test(appointmentDate);
-        console.log(1);
-        
+     
         if(dateOk === false){
             return res.status(404).json({
                 success: false,
@@ -195,9 +206,8 @@ export const updateAppointment = async (req: Request, res: Response) => {
                 }
             }
         )
-        console.log(appointment);
 
-        if(appointment!.user.id !== userId){
+        if((appointment!.user.id !== userId)&&(roleName === "user")){
             return res.status(404).json({
                 success: false,
                 message: "Can't modify someone else appointment",
@@ -205,16 +215,16 @@ export const updateAppointment = async (req: Request, res: Response) => {
 
         }
 
-        console.log(3);
+        console.log(appointment?.user.id )
         // Actualizar datos
         const appointmentUpdated = await Appointment.update(
             {
                 id: parseInt(appointmentId),
-                user: {id: userId},
+                user: {id: appointment?.user.id},
             },
             {
                 appointmentDate: appointmentDate,
-                user: { id: userId },
+                user: { id: appointment?.user.id },
                 service: { id: serviceId }
 
             }
