@@ -6,21 +6,21 @@ The projetc consists in develop the backend for the appointment management syste
 ***
 ## Table of Contents :file_folder:
 
-- [Stack 🛠️](#stack)
-- [Features 🌟](#features-)
-- [Live Deployment 📡](#live-deployment-)
-- [Installation 🚀](#installation-)
-- [API Documentation 📘](#api-documentation-)
-  - [Database Design 📖](#database-design-)
-  - [Relationships](#relationships)
-  - [Indices and Constraints](#indices-and-constraints)
-  - [API Endpoints 🔌](#api-endpoints-)
-- [Author ✒️](#author-)
-- [Roadmap 🛣️](#roadmap-️)
-- [Acknowledgements 🎓](#acknowledgements-)
+- [Stack 🔧](#stack-wrench)
+- [Features 🌟](#features-star2)
+- [Live Deployment 📡](#live-deployment-satellite)
+- [Installation 🚀](#installation-rocket)
+- [API Documentation 📑](#api-documentation-bookmark_tabs)
+    - [Database Design 📰](#database-design-🐳)
+    - [Relationships ♻️](#relationships-recycle)
+    - [Indices and Constraints ➡️](#indices-and-constraints-arrow_right)
+    - [Endpoints 🔌](#endpoints-electric_plug)
+- [Author ✒️](#author-black_nib)
+- [Next versions 🔜](#next-versions-soon)
+- [Acknowledgements 🎓](#acknowledgements-mortar_board)
 
 ***
-## Stack 🛠️
+## Stack :wrench:
 <div align="center">
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
 <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
@@ -34,7 +34,7 @@ The projetc consists in develop the backend for the appointment management syste
  </div>
 
 ***
-## Features 🌟
+## Features :star2:
 
 - **User Authentication:** Secure signup and login processes. 🔒
 - **Appointment Creation:** Users can book appointments, with date and user profile validation. 📅
@@ -47,14 +47,14 @@ The projetc consists in develop the backend for the appointment management syste
 - **Error Handling:** Custom error middleware for handling common API errors. 📝
 
 ***
-## Live Deployment 📡
+## Live Deployment :satellite:
 
 Try out the API at:
 
 > []()
 
 ***
-## Installation 🚀
+## Installation :rocket:
 - #### GitHub 🐾
   - Get a copy of the project up and running on your local machine:
 
@@ -83,16 +83,14 @@ Try out the API at:
     ⚠️You'll need add a `.env` based on the provided `.env.example` file with the database credentials⚠️
 
 ***
-## API Documentation 📘
+## API Documentation :bookmark_tabs:
 
-
-
-  - ### Database Design 📖
+  - ### Database Design :newspaper:
 
 <img width="803" alt="ERD" src="./img/DB_design.png">
 
 ***
-  - ### Relationships
+  - ### Relationships :recycle:
     - `Role` to `Users`: One-to-many relationship where:
       - One role can have many users.
 
@@ -102,7 +100,7 @@ Try out the API at:
     - `Service` to `Appointments`: One-to-many relationship where:
       - One service can have many appointments.
 ***
-  - ### Indices and Constraints
+  - ### Indices and Constraints :arrow_right:
 
     - `Users` table:
       - Unique constraint on `email` to ensure each user has a unique email address.
@@ -111,7 +109,7 @@ Try out the API at:
       - Foreign key constraint on `service_id` and `user_id` referring to `id` in the `Users` and `Services` tables.
 
 ***
-  - ### Endpoints 🔌
+  - ### Endpoints :electric_plug:
 
   (Click to expand)
 
@@ -124,156 +122,279 @@ Try out the API at:
 - `GET /api/services` - List all tattoo services.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        fhsdljkfsdjfsdjfdsf
+        Anyone with an internet connection can visit the studio's services.
     </details>
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
-
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
-        
-    </details>
-
-
 
 ##### Authentication 🔒
 
 - `POST /api/auth/register` - Register a new user.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        fhsdljkfsdjfsdjfdsf
+        Forbidden to repeat an email address already registered. Last name and role are not mandatory. 
     </details>
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
+        {
+          "firstName": "Pepe",
+          "lastName": "Perez",
+          "email": "pepe@pepe.com",
+          "password": "123456",
+          "roleId": "1"
+        }
         
     </details>
 - `POST /api/auth/login` - Login an existing user.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        fhsdljkfsdjfsdjfdsf
+        Mandatory to be already registered in the aplication. Important to introduce the email and password successfully.
     </details>
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
+        {
+          "email": "pepe@pepe.com",
+          "password": "123456"
+        }
         
     </details>
 ##### Users 👤
 
-- `GET /api/users/me` - Retrieve authenticated user's profile.
+- `GET /api/users` - Retrieve authenticated user's profile.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        fhsdljkfsdjfsdjfdsf
+        Mandatory to be logged previusly. Forbiden to see others profiles.
     </details>
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
-
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
-        
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
     </details>
-- `PUT /api/users/me` - Update authenticated user's profile.
+- `PUT /api/users/profile` - Update authenticated user's profile.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        fhsdljkfsdjfsdjfdsf
+        Mandatory to be logged previusly. Forbiden to update others profiles. The user can modify whatever he wants (name, last name or email). At the same time or separately.
     </details>
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
+        {
+          "firstName": "Pepe",
+          "lastName": "Perez",
+          "email": "pepe@pepe.com"
+        }
         
     </details>
 
 ##### Appointments 📅
 
-- `GET /api/appointments/my` - Retrieve user's appointments.
+- `GET /api/appointments` - Retrieve user's appointments.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        fhsdljkfsdjfsdjfdsf
+        Mandatory to be logged previusly. Forbiden to see other users appointments.
     </details>
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
-
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
-        
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
     </details>
 
-- `GET /api/appointments/my/{id}` - Retrieve details of a specific appointment.
+- `GET /api/appointments/{id}` - Retrieve details of a specific appointment.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        fhsdljkfsdjfsdjfdsf
+        Mandatory to send the appointmentId in the endpoint.
+    </details>
+    <details>    
+    <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+
+- `PUT /api/appointments` - Update a appointment.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly. Forbiden to update other users appointments.
+        Mandatory to know the appointmentId to modify.
     </details>
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
-
-            {
-                "user": "David",
-                "email": "david@david.com",
-                "password": "princes"
-            }
-        
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
     </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
+        {
+          "appointmentIdToModify": 16,
+          "newAppointmentDate": "2025-03-02",
+          "newService": {
+                  "id": 5
+          }
+        }
+
+    </details>
 </details>
 
-<details>
-<summary style="font-weight: bold; font-size: 1.3em;"><i>Admin endpoints</i></summary>
 
-##### Admin CRUD Endpoints - Users 👩‍💼👨‍💼
+<details>
+<summary style="font-weight: bold; font-size: 1.3em;">Admin endpoints</summary>
+
+##### Users 👩‍💼👨‍💼
 
 - `GET /api/users` - List all users.
-- `POST /api/users` - Create a new user.
-- `GET /api/users/{id}` - Retrieve a user by ID.
-- `PUT /api/users/{id}` - Update a user by ID.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be admin or super-admin.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+
+- `GET /api/users/profile` - Retrieve a user profile.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be admin or super-admin.
+        Mandatory to send the appointmentId in the endpoint.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+       
+- `PUT /api/users/:id/role` - Update user role.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be admin or super-admin.
+        Mandatory to send the userId in the endpoint.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
+
+      {
+        "role": "2"
+      } 
+
 - `DELETE /api/users/{id}` - Delete a user by ID.
-- `PUT /api/users/setAsTattooist/{id}` - Set a user as a tattooist.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be admin or super-admin.
+        Mandatory to send the appointmentId in the endpoint.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
 
-##### Admin CRUD Endpoints - Appointments 📅
 
-- `GET /api/appointments` - List all appointments.
+##### Appointments 📅
+
 - `POST /api/appointments` - Create a new appointment.
-- `GET /api/appointments/{id}` - Retrieve a specific appointment by ID.
-- `PUT /api/appointments/{id}` - Update a specific appointment by ID.
-- `DELETE /api/appointments/{id}` - Delete a specific appointment by ID.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be admin or super-admin.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
-##### Admin CRUD Endpoints - TattooWorks 🎨
+    {
+      "appointmentDate": "2024-03-03",
+      "user": {
+              "id": 5
+              },
+      "service": {
+              "id": 3
+      }
+    }
+        
+    </details>
 
-- `POST /api/tattooWorks` - Create a new tattoo work.
-- `PUT /api/tattooWorks/{id}` - Update a tattoo work by ID.
-- `DELETE /api/tattooWorks/{id}` - Delete a tattoo work by ID.
+- `PUT /api/appointments` - Update a appointment.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be admin or super-admin.
+        Admin or super-admin modifycate any appointment
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
+        {
+          "appointmentIdToModify": 16,
+          "newAppointmentDate": "2025-03-02",
+          "newService": {
+                  "id": 5
+          }
+        }
+
+    </details>
+
+
+##### Services 🎨
+
+- `POST /api/services` - Create a new service.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be super-admin.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
+
+        {
+          "serviceName": "SERVICENAME",
+          "description": "SERVICETEXT"
+        }
+
+    </details>
+- `PUT /api/services/{id}` - Update a service by ID.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be super-admin.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
+
+        {
+          "serviceName": "SERVICENAME",
+          "description": "SERVICETEXT"
+        }
+        
+    </details>
+- `DELETE /api/services/{id}` - Delete a service by ID.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        Mandatory to be logged previusly and be super-admin.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
 </details>
 
 ***
-## Roadmap 🛣️
+## Next versions :soon:
 
+- **Add a frontend** - So users can interact with the API from a web browser.
 - **Add notifications** - So users know when their appointments are modified, created or deleted.
-- **Add a React frontend** - So users can interact with the API from a web browser.
-
 ***
 ## Author :black_nib:
 - **Fernando Elegido** - Full Stack Developer
@@ -286,4 +407,4 @@ Try out the API at:
 
 ***
 
-[Top of document](#tattoo-studio-api-🖋️)
+[Top of document](#tattoo-studio-api-black_nib)
