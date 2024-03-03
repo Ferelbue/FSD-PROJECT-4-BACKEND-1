@@ -11,7 +11,7 @@ The projetc consists in develop the backend for the appointment management syste
 - [Live Deployment 📡](#live-deployment-satellite)
 - [Installation 🚀](#installation-rocket)
 - [API Documentation 📑](#api-documentation-bookmark_tabs)
-    - [Database Design 📰](#database-design-🐳)
+    - [Database Design 📰](#database-design-newspaper)
     - [Relationships ♻️](#relationships-recycle)
     - [Indices and Constraints ➡️](#indices-and-constraints-arrow_right)
     - [Endpoints 🔌](#endpoints-electric_plug)
