@@ -52,9 +52,9 @@ export const register = async (req: Request, res: Response) => {
             lastName: lastName,
             email: email,
             passwordHash: passwordEncrypted,
-            // role: {
-            //     id: roleId
-            // }
+            role: {
+                id: roleId
+            }
         }).save()
 
         // Responder

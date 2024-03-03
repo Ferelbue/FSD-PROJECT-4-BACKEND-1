@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { User } from "../models/User"
 import { FindOperator, Like } from "typeorm"
+import bcrypt from "bcrypt";
 
 
 //GET ALL USERS
@@ -161,16 +162,32 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         let firstName = req.body.firstName
         let lastName = req.body.lastName
         let email = req.body.email
+        let password = req.body.password
+        let newPassword = req.body.newPassword
         const userId = req.tokenData.userId
-        console.log(1)
-        const user = await User.findOneBy(
+
+        const user = await User.findOne(
             {
-                id: userId
+                where: {
+                    id: userId
+                },
+                relations: {
+                    role: true
+                },
+                select: {
+                    id: true,
+                    firstName: true,
+                    email: true,
+                    passwordHash: true,
+                    role: {
+                        name: true,
+                    }
+                }
             }
         )
-        console.log(user!.firstName)
-        console.log(user!.lastName)
-        console.log(user!.email)
+
+        console.log(user?.firstName)
+
         //VALIDAR
         if (!user) {
             return res.status(404).json({
@@ -181,7 +198,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
 
         }
 
-        if (!firstName && !lastName && !email) {
+        if (!firstName && !lastName && !email && !password) {
 
             return res.status(400).json({
                 succes: false,
@@ -189,18 +206,22 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             })
         }
 
-        if(!firstName){
-            firstName = user!.firstName
+        if (!firstName) {
+            firstName = user?.firstName
         }
 
-        if(!lastName){
-            lastName = user!.lastName
-        }
-        if(!email){
-            email = user!.email
+        if (!password) {
+            password = user?.passwordHash
         }
 
-        if (firstName.length > 50) {
+        if (!lastName) {
+            lastName = user?.lastName
+        }
+        if (!email) {
+            email = user?.email
+        }
+
+        if (firstName?.length > 50) {
 
             return res.status(400).json({
                 succes: false,
@@ -208,7 +229,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             })
         }
 
-        if (lastName.length > 50) {
+        if (lastName?.length > 50) {
 
             return res.status(400).json({
                 succes: false,
@@ -227,6 +248,44 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             )
         }
 
+        const exist = await User.findOne(
+            {
+                where: {
+                    email: email,
+                }
+            }
+
+        )
+
+        if (exist) {
+            return res.status(406).json({
+                success: false,
+                message: "Email already registered"
+            })
+        }
+
+        if(newPassword){
+        console.log(user.passwordHash)
+
+        const passwordEqual = bcrypt.compareSync(password, user.passwordHash)
+
+        console.log(passwordEqual)
+        if ((newPassword.length > 0) && (passwordEqual == true)) {
+
+            const newPasswordEncrypted = bcrypt.hashSync(newPassword, 8)
+            password = newPasswordEncrypted;
+            console.log(password);
+        }else{
+            return res.status(200).json(
+                {
+                    success: true,
+                    message: "Password or new password incorrect"
+                })
+
+        }
+    }
+
+
         // Actualizar datos
         const userUpdated = await User.update(
             {
@@ -235,16 +294,18 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             {
                 firstName: firstName,
                 lastName: lastName,
-                email: email
+                email: email,
+                passwordHash: password,
             }
         )
 
         //Response
-        res.status(200).json(
+        return res.status(200).json(
             {
                 success: true,
                 message: "User updated succesfully"
             })
+
 
     } catch (error) {
         res.status(500).json({
@@ -262,7 +323,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
         const role = req.body.role
         const userId = req.params.id
 
-        
+
         // Validacion
         if (role != "1" && role != "2" && role != "3") {
             return res.status(400).json({
