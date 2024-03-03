@@ -1,7 +1,7 @@
 {
     "client": "Thunder Client",
     "collectionName": "PROJETC_4",
-    "dateExported": "2024-03-03T11:00:43.298Z",
+    "dateExported": "2024-03-03T19:41:25.061Z",
     "version": "1.1",
     "folders": [
         {
@@ -154,12 +154,12 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2024-02-29T18:09:25.962Z",
-            "modified": "2024-03-03T10:26:06.666Z",
+            "modified": "2024-03-03T17:40:20.220Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInJvbGVOYW1lIjoidXNlciIsImlhdCI6MTcwOTQ2MTM5OSwiZXhwIjoxNzA5NDY4NTk5fQ.q6SKBZ8JyDKttt94LoUp7HG4X10-N941n4S87iPgI2M"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjcsInJvbGVOYW1lIjoidXNlciIsImlhdCI6MTcwOTQ4NzYxMSwiZXhwIjoxNzA5NDk0ODExfQ.VJpVJKnLtd_1J_Eq_pcN1AirNVZCjRGvhhfbTV4W2DM"
             },
             "tests": []
         },
@@ -172,12 +172,12 @@
             "method": "POST",
             "sortNum": 20000,
             "created": "2024-02-29T18:35:44.430Z",
-            "modified": "2024-03-03T10:55:20.056Z",
+            "modified": "2024-03-03T17:40:11.952Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\": \"fernando@fernando.com\",\n  \"password\": \"123456\"\n}",
+                "raw": "{\n  \"email\": \"ruben@ruben.com\",\n  \"password\": \"123456\"\n}",
                 "form": []
             },
             "tests": []

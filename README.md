@@ -34,6 +34,7 @@ The projetc consists in develop the backend for the appointment management syste
 ***
 ## Features :star2:
 
+- **Endpoints created:** [Thunder collection file. Open it in Thunder client and test de APP ](/doc/thunder-collection_PROJETC_4.json) 🔒
 - **User Authentication:** Secure signup and login processes. 🔒
 - **Appointment Creation:** Users can book appointments, with date and user profile validation. 📅
 - **Admin and SuperAdmin CRUD Endpoints:** Full control over users, appointments and services for administrators. 👩‍💼👨‍💼
