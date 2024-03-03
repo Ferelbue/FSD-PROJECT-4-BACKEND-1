@@ -1,42 +1,46 @@
 
-# Tattoo Studio API 🖋️
+# Tattoo Studio API :black_nib:
 
-This is the 4th project of the GeeksHub Academy Fullstack Developer Bootcamp, showcasing a real-world backend development skills with JavaScript and mysql.
-The projetc consists in develop the backend for the appointment management system of a tattoo studio corresponding to the appointment management system for the studio.
-
+This is the 4th project of the GeeksHubs Academy Fullstack Developer Bootcamp, showcasing a real-world backend development skills with TypeScript and MYSQL.
+The projetc consists in develop the backend for the appointment management system of a tattoo studio.
 ***
-## Table of Contents 🗂️
+## Table of Contents :file_folder:
 
 - [Stack 🛠️](#stack)
 - [Features 🌟](#features-)
 - [Live Deployment 📡](#live-deployment-)
 - [Installation 🚀](#installation-)
-  - [Running with Docker ⚓️](#running-with-docker-️)
-  - [Running directly with Node](#running-directly-with-node)
 - [API Documentation 📘](#api-documentation-)
-- [Database Design 📖](#database-design-)
+  - [Database Design 📖](#database-design-)
   - [Relationships](#relationships)
   - [Indices and Constraints](#indices-and-constraints)
-- [API Endpoints 🔌](#api-endpoints-)
+  - [API Endpoints 🔌](#api-endpoints-)
 - [Author ✒️](#author-)
 - [Roadmap 🛣️](#roadmap-️)
 - [Acknowledgements 🎓](#acknowledgements-)
 
 ***
 ## Stack 🛠️
-
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" /><img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" /><img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" /><img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" /><img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" /><img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" /><img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Swagger" /><img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman" /><img src="https://img.shields.io/badge/railway-000000?style=for-the-badge&logo=railway&logoColor=white" alt="JWT" />
+<div align="center">
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
+<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white" alt="Node.js" />
+<img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" />
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
+<img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
+<img src="https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=swagger&logoColor=black" alt="Swagger" />
+<img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white" alt="Postman" />
+<img src="https://img.shields.io/badge/railway-000000?style=for-the-badge&logo=railway&logoColor=white" alt="JWT" />
+ </div>
 
 ***
 ## Features 🌟
 
 - **User Authentication:** Secure signup and login processes. 🔒
 - **Appointment Creation:** Users can book appointments, with date and user profile validation. 📅
-- **Tattoo Artist Portfolios:** Tattooists can upload examples of their work. 🎨
-- **Admin CRUD Endpoints:** Full control over users, appointments, and tattoo works for administrators. 👩‍💼👨‍💼
-- **Swagger Documentation:** Fully documented API endpoints. 📚
-- **Docker Compose:** Easy setup and deployment with Docker. 🐳
-- **Google-Style JSON Responses:** Consistently formatted responses. 📁
+- **Admin and SuperAdmin CRUD Endpoints:** Full control over users, appointments and services for administrators. 👩‍💼👨‍💼
+- **Acurate Documentation:** Fully documented API endpoints. 📚
+- **Docker Container:** Easy setup and deployment with Docker. 🐳
 - **MySQL Database with TypeORM and Migrations:** Robust database management. 🗄️
 - **Mock Data Generation:** Realistic data generation with Faker.js. 🤖
 - **JWT Authentication:** Secure API endpoints with JSON Web Tokens. 🔑
@@ -47,114 +51,195 @@ The projetc consists in develop the backend for the appointment management syste
 
 Try out the API at:
 
-> [](asdsaasdsaasdsssdfsdfdsfdasdsadsaasdasdsadsfdsfdsfsdfsdfadsadd)
+> []()
 
 ***
 ## Installation 🚀
+- #### GitHub 🐾
+  - Get a copy of the project up and running on your local machine:
 
-Get a copy of the project up and running on your local machine for development and testing purposes.
+    ```sh
+    git clone https://github.com/Ferelbue/FSD-PROJECT-4-BACKEND-1.git
+    ```
 
-```sh
-git clone https://github.com/Ferelbue/FSD-PROJECT-4-BACKEND-1.git
-```
+- #### Docker 🐳
+  - You'll need Docker installed on your machine:
+    ```sh
+    $ docker run --name nombre-contenedor -p 3307:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql
+    ```
 
-#### Running with Docker ⚓️
+- #### MySQL Workbench 🔧
+  - Create and running a new server conection with the port, user and passwors establised.
 
-```sh
-docker-compose up --build
-```
+- #### Node 📟
+  - Run directly with Node: 
+    ```sh
+    npm install             # Install dependecies
+    npm run migrations-run  # Run migrations
+    npm run seed            # Poblate DB with mock
+    npm run dev             # Run server
+    ```
 
-(You'll need Docker and Docker Compose installed on your machine.)
-
-***
-#### Running directly with Node
-
-```sh
-npm install             # Install dependecies
-npm run migrations:run  # Run migrations
-npm run seed            # Populate DB with mock
-npm run dev             # Run server
-```
-
-You'll need add a `.env` based on the provided `.env.example` file with the database credentials, and have a MySQL server running.
+    ⚠️You'll need add a `.env` based on the provided `.env.example` file with the database credentials⚠️
 
 ***
 ## API Documentation 📘
 
-Access the Swagger documentation at:
 
-- Development: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
-- Production: []()
 
-***
-## Database Design 📖
+  - ### Database Design 📖
 
 <img width="803" alt="ERD" src="./img/DB_design.png">
 
 ***
-### Relationships
+  - ### Relationships
+    - `Role` to `Users`: One-to-many relationship where:
+      - One role can have many users.
 
-- `Users` to `Appointments`: Double one-to-many relationship where:
-  - One user (as a client) can have many appointments.
-  - One user (as a tattooist) can be associated with many appointments.
+    - `User` to `Appointments`: One-to-many relationship where:
+      - One user can have many appointments.
+
+    - `Service` to `Appointments`: One-to-many relationship where:
+      - One service can have many appointments.
+***
+  - ### Indices and Constraints
+
+    - `Users` table:
+      - Unique constraint on `email` to ensure each user has a unique email address.
+      - Foreign key constraint on `role_id` referring to `id` in the `Roles` table.
+    - `Appointments` table:
+      - Foreign key constraint on `service_id` and `user_id` referring to `id` in the `Users` and `Services` tables.
 
 ***
-### Indices and Constraints
+  - ### Endpoints 🔌
 
-- `Users` table:
-  - Unique constraint on `email` to ensure each user has a unique email address.
-- `Appointments` table:
-  - Foreign key constraint on `service_id` and `user_id` referring to `id` in the `Users` table.
+  (Click to expand)
 
-***
-## API Endpoints 🔌
-
-Check the swagger documentation for a complete documentation of the API endpoints.
-
-(Click to expand)
-
-<details>
-  <summary style="font-weight: bold; font-size: 1.3em;">Documentation</summary>
-
-- `GET /api-docs` - Swagger documentation.
-</details>
 
 <details>
   <summary style="font-weight: bold; font-size: 1.3em;">User Endpoints</summary>
+  
+##### Public 🌍
+
+- `GET /api/services` - List all tattoo services.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        fhsdljkfsdjfsdjfdsf
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
+
+            {
+                "user": "David",
+                "email": "david@david.com",
+                "password": "princes"
+            }
+        
+    </details>
+
+
 
 ##### Authentication 🔒
 
 - `POST /api/auth/register` - Register a new user.
-- `POST /api/auth/login` - Login an existing user.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        fhsdljkfsdjfsdjfdsf
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
 
+            {
+                "user": "David",
+                "email": "david@david.com",
+                "password": "princes"
+            }
+        
+    </details>
+- `POST /api/auth/login` - Login an existing user.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        fhsdljkfsdjfsdjfdsf
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
+
+            {
+                "user": "David",
+                "email": "david@david.com",
+                "password": "princes"
+            }
+        
+    </details>
 ##### Users 👤
 
 - `GET /api/users/me` - Retrieve authenticated user's profile.
-- `PUT /api/users/me` - Update authenticated user's profile.
-- `DELETE /api/users/me` - Delete authenticated user.
-- `GET /api/users/getTattooists` - List all tattooists.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        fhsdljkfsdjfsdjfdsf
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
 
-##### User Appointments 📅
+            {
+                "user": "David",
+                "email": "david@david.com",
+                "password": "princes"
+            }
+        
+    </details>
+- `PUT /api/users/me` - Update authenticated user's profile.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        fhsdljkfsdjfsdjfdsf
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
+
+            {
+                "user": "David",
+                "email": "david@david.com",
+                "password": "princes"
+            }
+        
+    </details>
+
+##### Appointments 📅
 
 - `GET /api/appointments/my` - Retrieve user's appointments.
-- `POST /api/appointments/my` - Request a new appointment.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        fhsdljkfsdjfsdjfdsf
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
+
+            {
+                "user": "David",
+                "email": "david@david.com",
+                "password": "princes"
+            }
+        
+    </details>
+
 - `GET /api/appointments/my/{id}` - Retrieve details of a specific appointment.
-- `PUT /api/appointments/my/{id}` - Update a specific appointment.
-- `DELETE /api/appointments/my/{id}` - Delete a specific appointment.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
+        fhsdljkfsdjfsdjfdsf
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">Body</summary>
 
-##### TattooWorks - Public 🌍
-
-- `GET /api/tattooWorks` - List all tattoo works.
-- `GET /api/tattooWorks/{id}` - Retrieve a specific tattoo work by ID.
-
-##### TattooWorks - Tattooist 🎨
-
-- `GET /api/tattooWorks/my` - Retrieve a tattooist's works.
-- `POST /api/tattooWorks/my` - Create a new work for the authenticated tattooist.
-- `PUT /api/tattooWorks/my/{id}` - Update a specific tattoo work by ID.
-- `DELETE /api/tattooWorks/my/{id}` - Delete a specific tattoo work by ID.
+            {
+                "user": "David",
+                "email": "david@david.com",
+                "password": "princes"
+            }
+        
+    </details>
 
 </details>
+
 <details>
 <summary style="font-weight: bold; font-size: 1.3em;"><i>Admin endpoints</i></summary>
 
