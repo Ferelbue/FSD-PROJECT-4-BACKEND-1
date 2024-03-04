@@ -215,7 +215,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
 
         }
 
-        console.log(appointment?.user.id )
+
         // Actualizar datos
         const appointmentUpdated = await Appointment.update(
             {
@@ -231,10 +231,11 @@ export const updateAppointment = async (req: Request, res: Response) => {
         )
 
         //Consultar y recuperar
-        const appointments = await Appointment.find(
+        const user = await Appointment.findOne(
             {
                 where: {
-                    user: { id: userId }
+                    id: parseInt(appointmentId),
+                    user: {id: appointment?.user.id},
                 },
                 relations: {
                     user: true
@@ -252,12 +253,13 @@ export const updateAppointment = async (req: Request, res: Response) => {
             }
         )
 
+        
         // Responder
         res.status(200).json(
             {
                 success: true,
                 message: "Appointment updated successfully",
-                data: appointmentUpdated
+                data: user
             }
         )
 

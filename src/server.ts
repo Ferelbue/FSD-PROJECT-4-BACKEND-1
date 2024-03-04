@@ -10,10 +10,15 @@ const startServer = () => {
     
     AppDataSource.initialize()
         .then(() => {
-            console.log('Database connected');
+            console.log('------------------------');
+            console.log('-- DATABASE CONNECTED --');
 
             app.listen(PORT, () => {
-                console.log(`Server is running in port: ${PORT}`)
+
+                console.log('------------------------');
+                console.log('---- SERVER RUNNING ----');
+                console.log(`----    PORT:${PORT}   ----`);
+                console.log('------------------------');
             })
         })
         .catch(error => {
