@@ -1,5 +1,5 @@
 
-# Tattoo Studio API :black_nib:
+# Tattoo Studio API :pen:
 
 This is the 4th project of the GeeksHubs Academy Fullstack Developer Bootcamp, showcasing a real-world backend development skills with TypeScript and MYSQL.
 The projetc consists in develop the backend for the appointment management system of a tattoo studio.
@@ -34,7 +34,7 @@ The projetc consists in develop the backend for the appointment management syste
 ***
 ## Features :star2:
 
-- **Endpoints created:** [Thunder collection file. Open it in Thunder client and test de APP ](/doc/thunder-collection_PROJETC_4.json) 🔒
+- **Endpoints test:** Thunder collection file. [Open it in Thunder client and test de APP ](/doc/thunder-collection_PROJETC_4.json) 
 - **User Authentication:** Secure signup and login processes. 🔒
 - **Appointment Creation:** Users can book appointments, with date and user profile validation. 📅
 - **Admin and SuperAdmin CRUD Endpoints:** Full control over users, appointments and services for administrators. 👩‍💼👨‍💼
@@ -397,7 +397,18 @@ Try out the API at:
 ***
 ## Author :black_nib:
 - **Fernando Elegido** - Full Stack Developer
-  - [GitHub](https://github.com/ferelbue) - [LinkedIn](https://www.linkedin.com/in/ferelbue)
+
+<div align="center">
+<a href="https://github.com/ferelbue" target="_blank"><img src="https://img.shields.io/badge/github-24292F?style=for-the-badge&logo=github&logoColor=white" target="_blank"></a> 
+<a href = "mailto:ferelbue@gmail.com"><img src="https://img.shields.io/badge/Gmail-C6362C?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+<a href="https://www.linkedin.com/in/fernando-elegido" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+</div>
+
+
+
+
+
+
 ***
 
 ## Acknowledgements :mortar_board:
@@ -406,4 +417,4 @@ Try out the API at:
 
 ***
 
-[Top of document](#tattoo-studio-api-black_nib)
+[Top of document](#tattoo-studio-api-pen)
