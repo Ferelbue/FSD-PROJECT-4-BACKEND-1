@@ -58,8 +58,6 @@ export const updateRoles = (req: Request, res: Response) => {
 
     //Recuperar parametros de la ruta
     req.params.id
-    console.log(req.params.id)
-
 
     res.status(200).json(
         {
@@ -71,7 +69,6 @@ export const updateRoles = (req: Request, res: Response) => {
 //DELETE
 export const deleteRoles = (req: Request, res: Response) => {
 
-    console.log(req.body.id)
 
     res.status(200).json(
         {

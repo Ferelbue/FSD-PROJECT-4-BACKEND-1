@@ -7,7 +7,7 @@ The projetc consists in develop the backend for the appointment management syste
 ## Table of Contents :file_folder:
 
 - [Stack 🔧](#stack-wrench)
-- [Features 🌟](#features-star2)
+- [features 🌟](#features-star2)
 - [Live Deployment 📡](#live-deployment-satellite)
 - [Installation 🚀](#installation-rocket)
 - [API Documentation 📑](#api-documentation-bookmark_tabs)
@@ -32,9 +32,9 @@ The projetc consists in develop the backend for the appointment management syste
  </div>
 
 ***
-## Features :star2:
+## FEATURES :star2:
 
-- **Endpoints test:** Thunder collection file. [Open it in Thunder client and test de APP ](/doc/thunder-collection_PROJETC_4.json) 
+- **Endpoints test:** Thunder collection file. [Open it in Thunder client extension and test de APP ](./HTTP/thunder-collection_PROJETC_4.json)👌
 - **User Authentication:** Secure signup and login processes. 🔒
 - **Appointment Creation:** Users can book appointments, with date and user profile validation. 📅
 - **Admin and SuperAdmin CRUD Endpoints:** Full control over users, appointments and services for administrators. 👩‍💼👨‍💼
@@ -48,7 +48,7 @@ The projetc consists in develop the backend for the appointment management syste
 ***
 ## Live Deployment :satellite:
 
-Try out the API at:
+Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/services
 
 > []()
 
@@ -68,7 +68,7 @@ Try out the API at:
     ```
 
 - #### MySQL Workbench 🔧
-  - Create and running a new server conection with the port, user and passwors establised.
+  - Create and run a new server conection with the port, user and passwors establised.
 
 - #### Node 📟
   - Run directly with Node: 
@@ -102,7 +102,7 @@ Try out the API at:
   - ### Indices and Constraints :arrow_right:
 
     - `Users` table:
-      - Unique constraint on `email` to ensure each user has a unique email address.
+      - Unique constraint on `email` to ensure each user has an unique email address.
       - Foreign key constraint on `role_id` referring to `id` in the `Roles` table.
     - `Appointments` table:
       - Foreign key constraint on `service_id` and `user_id` referring to `id` in the `Users` and `Services` tables.
@@ -120,16 +120,16 @@ Try out the API at:
 
 - `GET /api/services` - List all tattoo services.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Anyone with an internet connection can visit the studio's services.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Anyone with an internet connection can visit the studio's services.
     </details>
 
 ##### Authentication 🔒
 
 - `POST /api/auth/register` - Register a new user.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Forbidden to repeat an email address already registered. Last name and role are not mandatory. 
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Forbidden to repeat an email address already registered. <br>- Last name not mandatory. 
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
@@ -138,15 +138,15 @@ Try out the API at:
           "firstName": "Pepe",
           "lastName": "Perez",
           "email": "pepe@pepe.com",
-          "password": "123456",
-          "roleId": "1"
+          "password": "123456"
         }
         
     </details>
 - `POST /api/auth/login` - Login an existing user.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be already registered in the aplication. Important to introduce the email and password successfully.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be already registered in the aplication.<br>
+        - Mandatory to introduce the email and password successfully.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
@@ -161,39 +161,47 @@ Try out the API at:
 
 - `GET /api/users` - Retrieve authenticated user's profile.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly. Forbiden to see others profiles.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly.<br>
+        - Forbiden to see others profiles.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
-        Mandatory to send the token in the Bearer Authentication.
+        - Mandatory to send the token in the Bearer Authentication.
     </details>
 - `PUT /api/users/profile` - Update authenticated user's profile.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly. Forbiden to update others profiles. The user can modify whatever he wants (name, last name or email). At the same time or separately.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly.<br>
+        - Forbiden to update others profiles.<br>
+        - The user can modify whatever he wants (name, last name, email or password). At the same time or separately.<br>
+        - To modify the password had to write two passwords.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
         Mandatory to send the token in the Bearer Authentication.
     </details>
-    <details>
+        <details>
       <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
-        {
+        { THIS IS AN EXAMPLE. CAN BE MODIFIED SEPARATELY
           "firstName": "Pepe",
           "lastName": "Perez",
-          "email": "pepe@pepe.com"
+          "email": "pepe@pepe.com",
+
+          "password": "123456",
+          "newPassword": "654321"
         }
-        
+
     </details>
 
 ##### Appointments 📅
 
 - `GET /api/appointments` - Retrieve user's appointments.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly. Forbiden to see other users appointments.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly.<br>
+        - Forbiden to see other users appointments.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -202,8 +210,8 @@ Try out the API at:
 
 - `GET /api/appointments/{id}` - Retrieve details of a specific appointment.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to send the appointmentId in the endpoint.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to send the appointment ID in the endpoint.<br>  - Forbiden to see other users appointments.
     </details>
     <details>    
     <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -212,9 +220,10 @@ Try out the API at:
 
 - `PUT /api/appointments` - Update a appointment.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly. Forbiden to update other users appointments.
-        Mandatory to know the appointmentId to modify.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly.<br> 
+        - Forbiden to update other users appointments.<br> 
+        - Mandatory to know the appointmentId to modify.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -242,19 +251,23 @@ Try out the API at:
 
 - `GET /api/users` - List all users.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be admin or super-admin.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.<br>
+        - It is possible to filter by email, name or lastname adding to the endpoint: <br>
+        /api/users + (?email=name@name.com)(can be only a character)
+        /api/users + (?name=name)(can be only a character)
+
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
         Mandatory to send the token in the Bearer Authentication.
     </details>
 
-- `GET /api/users/profile` - Retrieve a user profile.
+- `GET /api/users/profile` - Retrieve any user profile.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be admin or super-admin.
-        Mandatory to send the appointmentId in the endpoint.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.<br>
+        - Mandatory to send the user ID in the endpoint.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -263,9 +276,9 @@ Try out the API at:
        
 - `PUT /api/users/:id/role` - Update user role.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be admin or super-admin.
-        Mandatory to send the userId in the endpoint.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.<br>
+        - Mandatory to send the user ID in the endpoint.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -280,9 +293,9 @@ Try out the API at:
 
 - `DELETE /api/users/{id}` - Delete a user by ID.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be admin or super-admin.
-        Mandatory to send the appointmentId in the endpoint.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.<br>
+        - Mandatory to send the user ID in the endpoint.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -294,8 +307,8 @@ Try out the API at:
 
 - `POST /api/appointments` - Create a new appointment.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be admin or super-admin.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -318,9 +331,9 @@ Try out the API at:
 
 - `PUT /api/appointments` - Update a appointment.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be admin or super-admin.
-        Admin or super-admin modifycate any appointment
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.<br>
+        - Admin or super-admin modifycate any appointment.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -344,8 +357,8 @@ Try out the API at:
 
 - `POST /api/services` - Create a new service.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be super-admin.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be super-admin.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -362,8 +375,8 @@ Try out the API at:
     </details>
 - `PUT /api/services/{id}` - Update a service by ID.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be super-admin.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be super-admin.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -380,8 +393,8 @@ Try out the API at:
     </details>
 - `DELETE /api/services/{id}` - Delete a service by ID.
     <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">Features</summary>
-        Mandatory to be logged previusly and be super-admin.
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be super-admin.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>

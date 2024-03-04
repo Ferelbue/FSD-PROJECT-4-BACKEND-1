@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 // CREATE USERS
 export const register = async (req: Request, res: Response) => {
 
+    
     try {
         //Recuperar datos
         const firstName = req.body.firstName;

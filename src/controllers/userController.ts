@@ -98,7 +98,7 @@ export const getUsers = async (req: Request, res: Response) => {
                     role: {
                         name: true,
                     }
-                },                
+                },
                 take: limit,
                 skip: skip
             }
@@ -161,8 +161,6 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             }
         )
 
-        console.log(user?.firstName)
-
         //VALIDAR
         if (!user) {
             return res.status(404).json({
@@ -192,8 +190,10 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         if (!lastName) {
             lastName = user?.lastName
         }
+        let flag = 0;
         if (!email) {
             email = user?.email
+            flag = 1;
         }
 
         if (firstName?.length > 50) {
@@ -211,7 +211,6 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                 message: "Last name too large"
             })
         }
-
         //validacion email
         const validEmail = /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
         if (!validEmail.test(email)) {
@@ -229,10 +228,9 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                     email: email,
                 }
             }
-
         )
 
-        if (exist) {
+        if (exist && (flag === 0)) {
             return res.status(406).json({
                 success: false,
                 message: "Email already registered"
@@ -240,16 +238,14 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         }
 
         if (newPassword) {
-            console.log(user.passwordHash)
 
             const passwordEqual = bcrypt.compareSync(password, user.passwordHash)
 
-            console.log(passwordEqual)
             if ((newPassword.length > 0) && (passwordEqual == true)) {
 
                 const newPasswordEncrypted = bcrypt.hashSync(newPassword, 8)
                 password = newPasswordEncrypted;
-                console.log(password);
+
             } else {
                 return res.status(200).json(
                     {
@@ -261,7 +257,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         }
 
 
-        // Actualizar datos
+        // Actualizar datos en la
         const userUpdated = await User.update(
             {
                 id: userId
@@ -274,11 +270,33 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             }
         )
 
+        //Recuper los datos para mostrarlos en la respuesta
+        const user2 = await User.findOne(
+            {
+                where: {
+                    id: userId
+                },
+                relations: {
+                    role: true
+                },
+                select: {
+                    id: true,
+                    firstName: true,
+                    email: true,
+                    passwordHash: true,
+                    role: {
+                        name: true,
+                    }
+                }
+            }
+        )
+
         //Response
         return res.status(200).json(
             {
                 success: true,
-                message: "User updated succesfully"
+                message: "User updated succesfully",
+                data: user2
             })
 
 
@@ -318,12 +336,33 @@ export const updateUserRole = async (req: Request, res: Response) => {
             }
         )
 
+        //Recuper los datos para mostrarlos en la respuesta
+        const user = await User.findOne(
+            {
+                where: {
+                    id: parseInt(userId)
+                },
+                relations: {
+                    role: true
+                },
+                select: {
+                    id: true,
+                    firstName: true,
+                    email: true,
+                    passwordHash: true,
+                    role: {
+                        name: true,
+                    }
+                }
+            }
+        )
+
         //Response
         res.status(200).json(
             {
                 success: true,
                 message: "User role updated succesfully",
-                data: userUpdated
+                data: user
             })
 
     } catch (error) {
