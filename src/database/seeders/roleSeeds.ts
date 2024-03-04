@@ -7,16 +7,19 @@ export const roleSeedDatabase = async () => {
         await AppDataSource.initialize();
 
         const roleUser = Role.create({
+            id: 1,
             name: "user"
         })
         await roleUser.save();
 
         const roleAdmin = Role.create({
+            id: 2,
             name: "admin"
         })
         await roleAdmin.save();
 
         const roleSuperAdmin = Role.create({
+            id: 3,
             name: "super-admin"
         })
         await roleSuperAdmin.save();
