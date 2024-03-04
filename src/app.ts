@@ -28,9 +28,9 @@ app.post('/api/auth/login', login)
 
 
 // USERS RUTES
-/*X*/app.get('/api/users', auth, isSuperAdmin, getUserByEmail)
- // DONE
+/*X*/app.get('/api/users', auth, isSuperAdmin, getUserByEmail) //CUIDADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
 app.get('/api/users', auth, isSuperAdmin, getUsers) 
+ // DONE
 // DONE
 app.get('/api/users/profile', auth, getUserProfile) 
 // DONE

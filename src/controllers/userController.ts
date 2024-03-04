@@ -7,12 +7,25 @@ import bcrypt from "bcrypt";
 //GET ALL USERS
 export const getUsers = async (req: Request, res: Response) => {
     try {
+        const limit = Number(req.query.limit) || 2;
+        const page = Number(req.query.page) || 2;
+        const skip = (page - 1) * limit;
+
+
+        if(limit>100){
+            return res.status(400).json({
+                success: false,
+                message: "Limit exced the limit",
+            })
+        }
+
+
         //CONSULTA DB
         const users = await User.find(
             {
-                relations: {
-                    role: true,
-                },
+                // relations: {
+                //     role: true
+                // },
                 select: {
                     firstName: true,
                     lastName: true,
@@ -21,6 +34,8 @@ export const getUsers = async (req: Request, res: Response) => {
                         name: true
                     }
                 },
+                take: limit,
+                skip: skip
             }
         )
 
@@ -99,6 +114,9 @@ export const getUserProfile = async (req: Request, res: Response) => {
 export const getUserByEmail = async (req: Request, res: Response) => {
 
     try {
+        const limit = Number(req.query.limit) || 2;
+        const page = Number(req.query.page) || 2;
+        const skip = (page - 1) * limit;
         //RECUPERAR DATOS DE LA BUSQUEDA
         //Crear interface con el parametro de busqueda email que es de tipo FindOperator<string>
         interface queryFilters {
@@ -125,7 +143,9 @@ export const getUserByEmail = async (req: Request, res: Response) => {
                     role: {
                         name: true,
                     }
-                }
+                },                
+                take: limit,
+                skip: skip
             }
         )
 
@@ -264,26 +284,26 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             })
         }
 
-        if(newPassword){
-        console.log(user.passwordHash)
+        if (newPassword) {
+            console.log(user.passwordHash)
 
-        const passwordEqual = bcrypt.compareSync(password, user.passwordHash)
+            const passwordEqual = bcrypt.compareSync(password, user.passwordHash)
 
-        console.log(passwordEqual)
-        if ((newPassword.length > 0) && (passwordEqual == true)) {
+            console.log(passwordEqual)
+            if ((newPassword.length > 0) && (passwordEqual == true)) {
 
-            const newPasswordEncrypted = bcrypt.hashSync(newPassword, 8)
-            password = newPasswordEncrypted;
-            console.log(password);
-        }else{
-            return res.status(200).json(
-                {
-                    success: true,
-                    message: "Password or new password incorrect"
-                })
+                const newPasswordEncrypted = bcrypt.hashSync(newPassword, 8)
+                password = newPasswordEncrypted;
+                console.log(password);
+            } else {
+                return res.status(200).json(
+                    {
+                        success: true,
+                        message: "Password or new password incorrect"
+                    })
 
+            }
         }
-    }
 
 
         // Actualizar datos

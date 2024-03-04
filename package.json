@@ -8,6 +8,8 @@
     "migration-run": "typeorm-ts-node-commonjs migration:run -d ./src/database/db.ts",
     "migration-drop": "typeorm-ts-node-commonjs migration:revert -d ./src/database/db.ts",
     "dev": "nodemon ./src/server.ts",
+    "build": "tsc",
+    "start": "node ./dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
