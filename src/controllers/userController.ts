@@ -4,59 +4,6 @@ import { FindOperator, Like } from "typeorm"
 import bcrypt from "bcrypt";
 
 
-//GET ALL USERS
-export const getUsers = async (req: Request, res: Response) => {
-    try {
-        const limit = Number(req.query.limit) || 2;
-        const page = Number(req.query.page) || 2;
-        const skip = (page - 1) * limit;
-
-
-        if(limit>100){
-            return res.status(400).json({
-                success: false,
-                message: "Limit exced the limit",
-            })
-        }
-
-
-        //CONSULTA DB
-        const users = await User.find(
-            {
-                // relations: {
-                //     role: true
-                // },
-                select: {
-                    firstName: true,
-                    lastName: true,
-                    email: true,
-                    role: {
-                        name: true
-                    }
-                },
-                take: limit,
-                skip: skip
-            }
-        )
-
-        // RESPUESTA
-        res.status(200).json(
-            {
-                success: true,
-                message: "Users retrieved successfully",
-                data: users
-            }
-        )
-
-    } catch (error) {
-        res.status(500).json({
-            success: false,
-            message: "Users cant be retrieved",
-            error: error
-        })
-    }
-}
-
 //GET USER PROFILE
 export const getUserProfile = async (req: Request, res: Response) => {
 
@@ -111,22 +58,30 @@ export const getUserProfile = async (req: Request, res: Response) => {
 }
 
 //GET USER PROFILE
-export const getUserByEmail = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request, res: Response) => {
 
     try {
-        const limit = Number(req.query.limit) || 2;
-        const page = Number(req.query.page) || 2;
+        const limit = Number(req.query.limit) || 10;
+        const page = Number(req.query.page) || 1;
         const skip = (page - 1) * limit;
         //RECUPERAR DATOS DE LA BUSQUEDA
         //Crear interface con el parametro de busqueda email que es de tipo FindOperator<string>
         interface queryFilters {
             email?: FindOperator<string>,
+            firstName?: FindOperator<string>,
+            lastName?: FindOperator<string>
         }
         // Se declara la constante queryFiters de tipo queryFilters
         const queryFilters: queryFilters = {}
 
         if (req.query.email) {
             queryFilters.email = Like("%" + req.query.email.toString() + "%");
+        }
+        if (req.query.firstName) {
+            queryFilters.firstName = Like("%" + req.query.firstName.toString() + "%");
+        }
+        if (req.query.lastName) {
+            queryFilters.lastName = Like("%" + req.query.lastName.toString() + "%");
         }
 
         //CONSULTA. Busqueda con los parametros de la query
