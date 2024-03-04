@@ -7,6 +7,7 @@ import { login, register } from "./controllers/authController";
 import { auth } from "./middlewares/auth";
 import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 import { isAdmin } from "./middlewares/isAdmin";
+// import router from "./routes/authRoutes"
 
 export const app = express();
 
@@ -23,7 +24,7 @@ app.get('/healthy', (req, res) => {
 // AUTH ROUTES
 app.post('/api/auth/register', register) 
 app.post('/api/auth/login', login) 
-
+// app.use('/',router)
 
 // USERS RUTES
 app.get('/api/users', auth, isSuperAdmin, getUsers)
