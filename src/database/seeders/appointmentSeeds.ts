@@ -7,7 +7,7 @@ const serviceSeedDatabase = async () => {
     try {
         await AppDataSource.initialize();
 
-        const dateString = faker.date.between({ from: '2024-03-02', to: '2025-03-02' });
+        const dateString = faker.date.between({ from: '2024-01-01', to: '2024-12-31' });
         const date = new Date(dateString);
     
         const appointment = Appointment.create({

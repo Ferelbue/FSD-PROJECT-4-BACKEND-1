@@ -28,7 +28,7 @@ The projetc consists in develop the backend for the appointment management syste
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
 <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
 <img src="https://img.shields.io/badge/JWT-FF6C37?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
-
+<img src="https://img.shields.io/badge/THUNDER-865C37?style=for-the-badge&logo=&logoColor=white" alt="JWT" />
  </div>
 
 ***
@@ -50,7 +50,6 @@ The projetc consists in develop the backend for the appointment management syste
 
 Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/services
 
-> []()
 
 ***
 ## Installation :rocket:
@@ -74,7 +73,7 @@ Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/s
   - Run directly with Node: 
     ```sh
     npm install             # Install dependecies
-    npm run migrations-run  # Run migrations
+    npm run migration-run  # Run migrations
     npm run seed            # Poblate DB with mock
     npm run dev             # Run server
     ```

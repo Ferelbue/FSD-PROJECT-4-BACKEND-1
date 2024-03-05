@@ -4,7 +4,7 @@ import { Appointment } from "../models/Appointment"
 
 //GET ONE USER APPOINTMENT
 export const getAppointment = async (req: Request, res: Response) => {
-    
+
     try {
         //RECUPERAR DATOS
         const appointmentId = req.params.id
@@ -32,7 +32,7 @@ export const getAppointment = async (req: Request, res: Response) => {
                     }
                 }
             }
-            )
+        )
 
         // VALIDAR
         if (!appointments) {
@@ -43,7 +43,7 @@ export const getAppointment = async (req: Request, res: Response) => {
             })
         }
 
-        if((userId !== appointments.user.id) && ((roleName !== "super-admin")&&(roleName !== "admin"))){
+        if ((userId !== appointments.user.id) && ((roleName !== "super-admin") && (roleName !== "admin"))) {
             return res.status(404).json({
                 success: false,
                 message: "Can't retrieve someone else appointment",
@@ -76,6 +76,11 @@ export const getAllAppointment = async (req: Request, res: Response) => {
         // Recuperar datos
         const userId = req.tokenData.userId
 
+        const today: Date = new Date();
+
+        let openAppointments: any[] = [];
+
+
         //Consultar y recuperar en la DB
         const appointments = await Appointment.find(
             {
@@ -98,12 +103,30 @@ export const getAllAppointment = async (req: Request, res: Response) => {
             }
         )
 
+        for (let i = 0; i < appointments.length; i++) {
+
+
+            if (((appointments[i].appointmentDate).getTime()) > (today.getTime())) {
+
+
+                openAppointments.push(appointments[i])
+
+            }
+
+        }
+
+
+
+
+
+
+
         // Responder
         res.status(200).json(
             {
                 success: true,
                 message: "Users retrieved successfully",
-                data: appointments
+                data: openAppointments
             }
         )
 
@@ -128,7 +151,7 @@ export const createAppointment = async (req: Request, res: Response) => {
         const regexDate = /^\d{4}-\d{2}-\d{2}$/;
         const dateOk = regexDate.test(appointmentDate);
 
-        if(dateOk === false){
+        if (dateOk === false) {
             return res.status(404).json({
                 success: false,
                 message: "Incorrect Date (YYYY-MM-DD)",
@@ -176,8 +199,8 @@ export const updateAppointment = async (req: Request, res: Response) => {
         // VALIDAR DATOS
         const regexDate = /^\d{4}-\d{2}-\d{2}$/;
         const dateOk = regexDate.test(appointmentDate);
-     
-        if(dateOk === false){
+
+        if (dateOk === false) {
             return res.status(404).json({
                 success: false,
                 message: "Incorrect Date (YYYY-MM-DD)",
@@ -207,7 +230,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
             }
         )
 
-        if((appointment!.user.id !== userId)&&(roleName === "user")){
+        if ((appointment!.user.id !== userId) && (roleName === "user")) {
             return res.status(404).json({
                 success: false,
                 message: "Can't modify someone else appointment",
@@ -220,7 +243,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
         const appointmentUpdated = await Appointment.update(
             {
                 id: parseInt(appointmentId),
-                user: {id: appointment?.user.id},
+                user: { id: appointment?.user.id },
             },
             {
                 appointmentDate: appointmentDate,
@@ -235,7 +258,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
             {
                 where: {
                     id: parseInt(appointmentId),
-                    user: {id: appointment?.user.id},
+                    user: { id: appointment?.user.id },
                 },
                 relations: {
                     user: true
@@ -253,7 +276,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
             }
         )
 
-        
+
         // Responder
         res.status(200).json(
             {
