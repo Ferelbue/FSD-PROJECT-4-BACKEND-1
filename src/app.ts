@@ -45,3 +45,4 @@ app.get('/api/services', getServices)
 app.post('/api/services', auth, isSuperAdmin, createService)
 app.put('/api/services/:id', auth, isSuperAdmin, updateService)
 app.delete('/api/services/:id', auth, isSuperAdmin, deleteService)
+
