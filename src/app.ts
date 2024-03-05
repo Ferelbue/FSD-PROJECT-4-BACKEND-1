@@ -11,6 +11,7 @@ import { isAdmin } from "./middlewares/isAdmin";
 
 export const app = express();
 
+
 app.use(express.json());
 
 app.get('/healthy', (req, res) => {

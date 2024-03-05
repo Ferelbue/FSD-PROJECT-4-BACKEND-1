@@ -1,16 +1,15 @@
 
 # Tattoo Studio API :pen:
 
-This is the 4th project of the GeeksHubs Academy Fullstack Developer Bootcamp, showcasing a real-world backend development skills with TypeScript and MYSQL.
+This is the 4th project of the GeeksHubs Academy Fullstack Developer Bootcamp, showcasing a real-world backend development skills with TypeScript and Express.
 The projetc consists in develop the backend for the appointment management system of a tattoo studio.
 ***
 ## Table of Contents :file_folder:
 
 - [Stack 🔧](#stack-wrench)
-- [features 🌟](#features-star2)
+- [Features 🌟](#features-star2)
+- [Local Deployment 🏠](#local-deplyment-house)
 - [Live Deployment 📡](#live-deployment-satellite)
-- [LOCAL Installation 🚀](#installation-rocket)
-- [ONLINE Installation ✈️](#installation-rocket)
 - [API Documentation 📑](#api-documentation-bookmark_tabs)
     - [Database Design 📰](#database-design-newspaper)
     - [Relationships ♻️](#relationships-recycle)
@@ -28,16 +27,17 @@ The projetc consists in develop the backend for the appointment management syste
 <img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" alt="Express.js" />
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL" />
 <img src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker" />
-<img src="https://img.shields.io/badge/JWT-FF6C37?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
-<img src="https://img.shields.io/badge/THUNDER-865C37?style=for-the-badge&logo=&logoColor=white" alt="JWT" />
+<img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white" alt="JWT" />
+<img src="https://img.shields.io/badge/THUNDER-4C0B5F?style=for-the-badge&logo=ZAP&logoColor=white" alt="THUNDER" />
+<img src="https://img.shields.io/badge/fl0 {/}-0B615E?style=for-the-badge&logo=postman&logoColor=white" alt="FL0" />
  </div>
 
 ***
-## FEATURES :star2:
+## Features :star2:
 
-- **Endpoints test:** Thunder collection file. [Open it in Thunder client extension and test de APP ](./HTTP/thunder-collection_PROJETC_4.json)👌
+- **Endpoints test:** Thunder collection file.👌
 - **User Authentication:** Secure signup and login processes. 🔒
-- **Appointment Creation:** Users can book appointments, with date and user profile validation. 📅
+- **Appointment Creation:** Admins can create appointments, with date and user profile validation. 📅
 - **Admin and SuperAdmin CRUD Endpoints:** Full control over users, appointments and services for administrators. 👩‍💼👨‍💼
 - **Acurate Documentation:** Fully documented API endpoints. 📚
 - **Docker Container:** Easy setup and deployment with Docker. 🐳
@@ -46,14 +46,10 @@ The projetc consists in develop the backend for the appointment management syste
 - **JWT Authentication:** Secure API endpoints with JSON Web Tokens. 🔑
 - **Error Handling:** Custom error middleware for handling common API errors. 📝
 
-***
-
-
-
-
 
 ***
-## Local Deplyment :rocket:
+## Local Deplyment :house:
+  #### ⚠️You'll need add a `.env` file based on the provided `.env.local.example` file with the database credentials⚠️
 - #### GitHub 🐾
   - Get a copy of the project up and running on your local machine:
 
@@ -62,7 +58,7 @@ The projetc consists in develop the backend for the appointment management syste
     ```
 
 - #### Docker 🐳
-  - You'll need Docker installed on your machine:
+  - You'll need Docker installed on your machine and execute:
     ```sh
     $ docker run --name nombre-contenedor -p 3307:3306 -e MYSQL_ROOT_PASSWORD=1234 -d mysql
     ```
@@ -79,10 +75,19 @@ The projetc consists in develop the backend for the appointment management syste
     npm run dev             # Run server
     ```
 
-    ⚠️You'll need add a `.env` based on the provided `.env.local.example` file with the database credentials⚠️
+
+- #### Thunder Client :zap:
+  -  [Open this file in Thunder client extension and test de API ](./HTTP/thunder-collection_PROJETC_4_LOCAL.json)
+
+
 
 ***
 ## Live Deployment :satellite:
+
+
+  #### ⚠️You'll need add a `.env` file based on the provided `.env.online.example` file with the database credentials⚠️
+
+
 - #### GitHub 🐾
   - Get a copy of the project up and running on your local machine:
 
@@ -108,7 +113,8 @@ The projetc consists in develop the backend for the appointment management syste
     npm run dev             # Run server
     ```
 
-    ⚠️You'll need add a `.env` based on the provided `.env.online.example` file with the database credentials⚠️
+- #### Thunder Client :zap:
+  -  [Open this file in Thunder client extension and test de API ](./HTTP/thunder-collection_PROJETC_4_ONLINE.json)
 
 ***
 ## API Documentation :bookmark_tabs:
@@ -281,7 +287,7 @@ The projetc consists in develop the backend for the appointment management syste
 <details>
 <summary style="font-weight: bold; font-size: 1.3em;">Admin endpoints</summary>
 
-##### ALL USER ENDPOINTS AND: 👇
+##### USER ENDPOINTS AND: 👇
 
 
 ##### Users 👩‍💼👨‍💼
@@ -330,7 +336,7 @@ The projetc consists in develop the backend for the appointment management syste
 <details>
 <summary style="font-weight: bold; font-size: 1.3em;">Super-Admin endpoints</summary>
 
-##### ALL USER AND ADMIN ENDPOINTS AND: 👇
+##### USER AND ADMIN ENDPOINTS AND: 👇
 
 ##### Users 👩‍💼👨‍💼
 
