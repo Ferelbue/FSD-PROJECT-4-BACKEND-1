@@ -70,7 +70,7 @@ The projetc consists in develop the backend for the appointment management syste
   - Run directly with Node: 
     ```sh
     npm install             # Install dependecies
-    npm run migration-run  # Run migrations
+    npm run migration-run   # Run migrations
     npm run seed            # Poblate DB with mock
     npm run dev             # Run server
     ```
@@ -108,7 +108,7 @@ The projetc consists in develop the backend for the appointment management syste
   - Run directly with Node: 
     ```sh
     npm install             # Install dependecies
-    npm run migration-run  # Run migrations
+    npm run migration-run   # Run migrations
     npm run seed            # Poblate DB with mock
     npm run dev             # Run server
     ```
@@ -236,7 +236,8 @@ The projetc consists in develop the backend for the appointment management syste
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
         - Mandatory to be logged previusly.<br>
-        - Forbiden to see other users appointments.
+        - Forbiden to see other users appointments.<br>
+        - Only retrieve future appointments.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -333,6 +334,8 @@ The projetc consists in develop the backend for the appointment management syste
 </details>
 
 
+
+
 <details>
 <summary style="font-weight: bold; font-size: 1.3em;">Super-Admin endpoints</summary>
 
@@ -345,8 +348,10 @@ The projetc consists in develop the backend for the appointment management syste
       <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
         - Mandatory to be logged previusly and be admin or super-admin.<br>
         - It is possible to filter by email, name or lastname adding to the endpoint: <br>
-        /api/users + (?email=name@name.com)(can be only a character)
-        /api/users + (?name=name)(can be only a character)
+          -> /api/users + (?email=name@name.com)(can be only a character)<br>
+          -> /api/users + (?name=name)(can be only a character)<br>
+        - Added pagination. By default: limit=10 and page=1. Possibility to modify adding: <br> 
+          -> /api/users + /api/users?limit=5&page=3
 
     </details>
     <details>
@@ -436,9 +441,10 @@ The projetc consists in develop the backend for the appointment management syste
 ***
 ## Next versions :soon:
 
-- **Add a frontend** - So users can interact with the API from a web browser.
-- **Add notifications** - So users know when their appointments are modified, created or deleted.
+- **Add a frontend** - Users can interact with the API from a web browser.
+- **Add notifications** - Users know when their appointments are modified, created or deleted.
 ***
+
 ## Author :black_nib:
 - **Fernando Elegido** - Full Stack Developer
 
