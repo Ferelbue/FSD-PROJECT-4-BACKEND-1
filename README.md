@@ -8,9 +8,8 @@ The projetc consists in develop the backend for the appointment management syste
 
 - [Stack 🔧](#stack-wrench)
 - [features 🌟](#features-star2)
-- [Live Deployment 📡](#live-deployment-satellite)
-- [LOCAL Installation 🚀](#installation-rocket)
-- [ONLINE Installation ✈️](#installation-rocket)
+- [Local Deployment 🏠](#installation-rocket)
+- [Live Deployment 📡](#installation-rocket)
 - [API Documentation 📑](#api-documentation-bookmark_tabs)
     - [Database Design 📰](#database-design-newspaper)
     - [Relationships ♻️](#relationships-recycle)
