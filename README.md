@@ -9,7 +9,8 @@ The projetc consists in develop the backend for the appointment management syste
 - [Stack 🔧](#stack-wrench)
 - [features 🌟](#features-star2)
 - [Live Deployment 📡](#live-deployment-satellite)
-- [Installation 🚀](#installation-rocket)
+- [LOCAL Installation 🚀](#installation-rocket)
+- [ONLINE Installation ✈️](#installation-rocket)
 - [API Documentation 📑](#api-documentation-bookmark_tabs)
     - [Database Design 📰](#database-design-newspaper)
     - [Relationships ♻️](#relationships-recycle)
@@ -46,13 +47,13 @@ The projetc consists in develop the backend for the appointment management syste
 - **Error Handling:** Custom error middleware for handling common API errors. 📝
 
 ***
-## Live Deployment :satellite:
 
-Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/services
+
+
 
 
 ***
-## Installation :rocket:
+## Local Deplyment :rocket:
 - #### GitHub 🐾
   - Get a copy of the project up and running on your local machine:
 
@@ -78,7 +79,36 @@ Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/s
     npm run dev             # Run server
     ```
 
-    ⚠️You'll need add a `.env` based on the provided `.env.example` file with the database credentials⚠️
+    ⚠️You'll need add a `.env` based on the provided `.env.local.example` file with the database credentials⚠️
+
+***
+## Live Deployment :satellite:
+- #### GitHub 🐾
+  - Get a copy of the project up and running on your local machine:
+
+    ```sh
+    git clone https://github.com/Ferelbue/FSD-PROJECT-4-BACKEND-1.git
+    ```
+
+- #### fl0 :curly_loop:
+  - Open the following link at an internet browser:
+    ```sh
+    https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/services
+    ```
+
+- #### MySQL Workbench 🔧
+  - Create and run a new server conection with the port, user and passwors establised.
+
+- #### Node 📟
+  - Run directly with Node: 
+    ```sh
+    npm install             # Install dependecies
+    npm run migration-run  # Run migrations
+    npm run seed            # Poblate DB with mock
+    npm run dev             # Run server
+    ```
+
+    ⚠️You'll need add a `.env` based on the provided `.env.online.example` file with the database credentials⚠️
 
 ***
 ## API Documentation :bookmark_tabs:
@@ -243,54 +273,21 @@ Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/s
 </details>
 
 
+
+
+
+
+
 <details>
 <summary style="font-weight: bold; font-size: 1.3em;">Admin endpoints</summary>
 
+##### ALL USER ENDPOINTS AND: 👇
+
+
 ##### Users 👩‍💼👨‍💼
 
-- `GET /api/users` - List all users.
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
-        - Mandatory to be logged previusly and be admin or super-admin.<br>
-        - It is possible to filter by email, name or lastname adding to the endpoint: <br>
-        /api/users + (?email=name@name.com)(can be only a character)
-        /api/users + (?name=name)(can be only a character)
-
-    </details>
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
-        Mandatory to send the token in the Bearer Authentication.
-    </details>
 
 - `GET /api/users/profile` - Retrieve any user profile.
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
-        - Mandatory to be logged previusly and be admin or super-admin.<br>
-        - Mandatory to send the user ID in the endpoint.
-    </details>
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
-        Mandatory to send the token in the Bearer Authentication.
-    </details>
-       
-- `PUT /api/users/:id/role` - Update user role.
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
-        - Mandatory to be logged previusly and be admin or super-admin.<br>
-        - Mandatory to send the user ID in the endpoint.
-    </details>
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
-        Mandatory to send the token in the Bearer Authentication.
-    </details>
-    <details>
-      <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
-
-      {
-        "role": "2"
-      } 
-
-- `DELETE /api/users/{id}` - Delete a user by ID.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
         - Mandatory to be logged previusly and be admin or super-admin.<br>
@@ -327,12 +324,36 @@ Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/s
     }
         
     </details>
+</details>
 
-- `PUT /api/appointments` - Update a appointment.
+
+<details>
+<summary style="font-weight: bold; font-size: 1.3em;">Super-Admin endpoints</summary>
+
+##### ALL USER AND ADMIN ENDPOINTS AND: 👇
+
+##### Users 👩‍💼👨‍💼
+
+- `GET /api/users` - List all users.
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
         - Mandatory to be logged previusly and be admin or super-admin.<br>
-        - Admin or super-admin modifycate any appointment.
+        - It is possible to filter by email, name or lastname adding to the endpoint: <br>
+        /api/users + (?email=name@name.com)(can be only a character)
+        /api/users + (?name=name)(can be only a character)
+
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
+    </details>
+
+       
+- `PUT /api/users/:id/role` - Update user role.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.<br>
+        - Mandatory to send the user ID in the endpoint.
     </details>
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
@@ -341,14 +362,19 @@ Try out the API at: https://fsd-project-4-backend-1-dev-tmen.3.us-1.fl0.io/api/s
     <details>
       <summary style="font-weight: bold; font-size: 0.8em;">BODY</summary>
 
-        {
-          "appointmentIdToModify": 16,
-          "newAppointmentDate": "2025-03-02",
-          "newService": {
-                  "id": 5
-          }
-        }
+      {
+        "role": "2"
+      } 
 
+- `DELETE /api/users/{id}` - Delete a user by ID.
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">FEATURES</summary>
+        - Mandatory to be logged previusly and be admin or super-admin.<br>
+        - Mandatory to send the user ID in the endpoint.
+    </details>
+    <details>
+      <summary style="font-weight: bold; font-size: 0.8em;">TOKEN</summary>
+        Mandatory to send the token in the Bearer Authentication.
     </details>
 
 
