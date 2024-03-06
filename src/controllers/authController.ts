@@ -13,7 +13,7 @@ export const register = async (req: Request, res: Response) => {
         const lastName = req.body.lastName;
         const email = req.body.email;
         const passwordHash = req.body.password;
-        const roleId = req.body.roleId;
+
 
         //validacion password
         if (passwordHash.length < 6 || passwordHash.length > 10) {
@@ -52,10 +52,7 @@ export const register = async (req: Request, res: Response) => {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            passwordHash: passwordEncrypted,
-            role: {
-                id: roleId
-            }
+            passwordHash: passwordEncrypted
         }).save()
 
         // Responder
@@ -161,11 +158,30 @@ export const login = async (req: Request, res: Response) => {
             }
         )
 
+        // Mostrar datos
+        const user2 = await User.findOne(
+            {
+                where: {
+                    email: email,
+                },
+                relations: {
+                    role: true
+                },
+                select: {
+                    id: true,
+                    email: true,
+                    role: {
+                        name: true,
+                    }
+                }
+            }
+        )
+
         // responder
         res.status(202).json({
             success: true,
             message: "User logged",
-            data: user,
+            data: user2,
             token: token
         })
 
