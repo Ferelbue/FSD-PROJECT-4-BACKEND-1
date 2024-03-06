@@ -168,42 +168,42 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                 message: "User not found",
 
             })
-            
+
         }
-        
+
         if (!firstName && !lastName && !email && !password) {
-            
+
             return res.status(400).json({
                 succes: false,
                 message: "Data can't be empty"
             })
         }
-        
+
         if (!firstName) {
             firstName = user?.firstName
         }
-        
+
         if (!password) {
             password = user?.passwordHash
         }
-        
+
         if (!lastName) {
             lastName = user?.lastName
         }
         let flag = false;
-        
+
         if (!email) {
             email = user?.email
             flag = true;
         }
         if (firstName?.length > 50) {
-            
+
             return res.status(400).json({
                 succes: false,
                 message: "First name too large"
             })
         }
-        
+
         if (lastName?.length > 50) {
 
             return res.status(400).json({
@@ -219,40 +219,40 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                     success: false,
                     message: "Email format invalid"
                 }
-                )
+            )
         }
-        
+
         const exist = await User.findOne(
             {
                 where: {
                     email: email,
                 }
             }
-            )
+        )
 
-            if (exist && !flag) {
+        if (exist && !flag) {
             return res.status(406).json({
                 success: false,
                 message: "Email already registered"
             })
         }
 
-        
+
         //validacion password
-        if(newPassword){
-        if (newPassword.length < 6 || newPassword.length > 10) {
-            return res.status(401).json({
-                success: false,
-                message: "Incorrect new password, min 6 max 10 characters"
-            })
-            
+        if (newPassword) {
+            if (newPassword.length < 6 || newPassword.length > 10) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Incorrect new password, min 6 max 10 characters"
+                })
+
+            }
         }
-    }
 
         if (newPassword) {
 
             const passwordEqual = bcrypt.compareSync(password, user.passwordHash)
-            
+
             if ((newPassword.length > 0) && (passwordEqual == true)) {
 
                 const newPasswordEncrypted = bcrypt.hashSync(newPassword, 8)
@@ -264,10 +264,10 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                         success: true,
                         message: "Old password incorrect"
                     })
-                    
-                }
+
+            }
         }
-        
+
 
         // Actualizar datos en la
         const userUpdated = await User.update(
