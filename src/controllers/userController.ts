@@ -190,10 +190,10 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         if (!lastName) {
             lastName = user?.lastName
         }
-        let flag = 0;
+        let flag = false;
         if (!email) {
             email = user?.email
-            flag = 1;
+            flag = true;
         }
 
         if (firstName?.length > 50) {
@@ -230,12 +230,23 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             }
         )
 
-        if (exist && (flag === 0)) {
+        if (exist && !flag) {
             return res.status(406).json({
                 success: false,
                 message: "Email already registered"
             })
         }
+
+
+        //validacion password
+        if (newPassword.length < 6 || newPassword.length > 10) {
+            return res.status(401).json({
+                success: false,
+                message: "Incorrect new password, min 6 max 10 characters"
+            })
+
+        }
+
 
         if (newPassword) {
 
@@ -250,7 +261,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                 return res.status(200).json(
                     {
                         success: true,
-                        message: "Password or new password incorrect"
+                        message: "Old password incorrect"
                     })
 
             }
@@ -290,6 +301,10 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                 }
             }
         )
+            console.log(1)
+
+            // const{passwordHash,...rest} = user2
+
 
         //Response
         return res.status(200).json(

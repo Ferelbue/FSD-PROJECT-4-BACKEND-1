@@ -17,7 +17,7 @@ export class User extends BaseEntity{
     @Column({ name: 'email' })
     email!: string
     
-    @Column({ name: 'password_hash' /*, select: false*/ })
+    @Column({ name: 'password_hash', select: false})
     passwordHash!: string
 
     @ManyToOne(() => Role, (role) => role.users)
