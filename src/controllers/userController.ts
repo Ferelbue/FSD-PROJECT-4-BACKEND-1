@@ -191,11 +191,11 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             lastName = user?.lastName
         }
         let flag = false;
+
         if (!email) {
             email = user?.email
             flag = true;
         }
-
         if (firstName?.length > 50) {
 
             return res.status(400).json({
@@ -239,14 +239,15 @@ export const updateUserProfile = async (req: Request, res: Response) => {
 
 
         //validacion password
-        if (newPassword.length < 6 || newPassword.length > 10) {
-            return res.status(401).json({
-                success: false,
-                message: "Incorrect new password, min 6 max 10 characters"
-            })
+        if (newPassword) {
+            if (newPassword.length < 6 || newPassword.length > 10) {
+                return res.status(401).json({
+                    success: false,
+                    message: "Incorrect new password, min 6 max 10 characters"
+                })
 
+            }
         }
-
 
         if (newPassword) {
 
@@ -301,9 +302,8 @@ export const updateUserProfile = async (req: Request, res: Response) => {
                 }
             }
         )
-            console.log(1)
 
-            // const{passwordHash,...rest} = user2
+
 
 
         //Response
