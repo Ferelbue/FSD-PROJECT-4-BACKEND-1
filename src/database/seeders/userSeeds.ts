@@ -10,7 +10,7 @@ export const userSeedDatabase = async () => {
             firstName: "user",
             lastName: "user",
             email: "user@user.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 1 }
         })
@@ -20,7 +20,7 @@ export const userSeedDatabase = async () => {
             firstName: "admin",
             lastName: "admin",
             email: "admin@admin.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 2 }
         })
@@ -30,7 +30,7 @@ export const userSeedDatabase = async () => {
             firstName: "superAdmin",
             lastName: "superAdmin",
             email: "superAdmin@superAdmin.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 3 }
         })
@@ -40,7 +40,7 @@ export const userSeedDatabase = async () => {
             firstName: "Fernando",
             lastName: "Elegido",
             email: "fernando@fernando.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 3 }
         })
@@ -50,7 +50,7 @@ export const userSeedDatabase = async () => {
             firstName: "Marta",
             lastName: "Santes",
             email: "marta@marta.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 2 }
         })
@@ -60,7 +60,7 @@ export const userSeedDatabase = async () => {
             firstName: "Lola",
             lastName: "Eletes",
             email: "lola@lola.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 1 }
         })
@@ -70,7 +70,7 @@ export const userSeedDatabase = async () => {
             firstName: "Ruben",
             lastName: "Gomez",
             email: "ruben@ruben.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 1 }
         })
@@ -80,7 +80,7 @@ export const userSeedDatabase = async () => {
             firstName: "David",
             lastName: "Martinez",
             email: "david@david.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 1 }
         })
@@ -90,7 +90,7 @@ export const userSeedDatabase = async () => {
             firstName: "Pepa",
             lastName: "Perez",
             email: "pepa@pepa.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 1 }
         })
@@ -100,7 +100,7 @@ export const userSeedDatabase = async () => {
             firstName: "Pepe",
             lastName: "Perez",
             email: "pepe@pepe.com",
-            image: faker.image.avatar(),
+            image: faker.image.urlLoremFlickr({ category: 'people' }),
             passwordHash: "$2b$08$lV2.D7/ibyEeWGbaJibeb.FknmnrSlcfpsYfNqbgZJJ0pKolyvObG",
             role: { id: 1 }
         })

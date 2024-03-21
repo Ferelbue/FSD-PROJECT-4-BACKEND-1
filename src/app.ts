@@ -1,5 +1,6 @@
 
 import express from "express";
+import cors from "cors";
 import { deleteUser,getUserProfile, getUsers, updateUserProfile, updateUserRole } from "./controllers/userController";
 import { createAppointment, getAllAppointment, getAppointment, updateAppointment } from "./controllers/appointmentController";
 import { createService, deleteService, getServices, updateService } from "./controllers/serviceController";
@@ -11,6 +12,7 @@ import { isAdmin } from "./middlewares/isAdmin";
 
 export const app = express();
 
+app.use(cors());
 
 app.use(express.json());
 

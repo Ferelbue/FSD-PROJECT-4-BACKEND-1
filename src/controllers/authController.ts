@@ -11,6 +11,7 @@ export const register = async (req: Request, res: Response) => {
         //Recuperar datos
         const firstName = req.body.firstName;
         const lastName = req.body.lastName;
+        const image= req.body.image;
         const email = req.body.email;
         const passwordHash = req.body.password;
 
@@ -51,10 +52,11 @@ export const register = async (req: Request, res: Response) => {
             const newUser = await User.create({
                 firstName: firstName,
                 lastName: lastName,
+                image: image,
                 email: email,
                 passwordHash: passwordEncrypted
             })
-            .save()
+                .save()
 
             const printUser = await User.findOne(
                 {
@@ -67,7 +69,7 @@ export const register = async (req: Request, res: Response) => {
                     select: {
                         id: true,
                         email: true,
-                        image:true,
+                        image: true,
                         role: {
                             id: true,
                             name: true,
@@ -141,6 +143,7 @@ export const login = async (req: Request, res: Response) => {
                 },
                 select: {
                     id: true,
+                    firstName: true,
                     passwordHash: true,
                     email: true,
                     role: {
@@ -172,7 +175,8 @@ export const login = async (req: Request, res: Response) => {
         const token = jwt.sign(
             {
                 userId: user.id,
-                roleName: user.role.name
+                roleName: user.role.name,
+                userName: user.firstName
             },
             process.env.JWT_SECRET as string,
             {
@@ -192,7 +196,7 @@ export const login = async (req: Request, res: Response) => {
                 select: {
                     id: true,
                     email: true,
-                    image:true,
+                    image: true,
                     role: {
                         name: true,
                     }

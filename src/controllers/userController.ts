@@ -12,18 +12,28 @@ export const getUserProfile = async (req: Request, res: Response) => {
         const userId = req.tokenData.userId
 
         //CONSULTA
-        const user = await User.findOne(
+        const user = await User.find(
             {
                 where: {
                     id: userId
                 },
-                relations: {
-                    role: true
-                },
+                relations: [
+                    'role',
+                    'appointments',
+                    'appointments.service',
+                ],
                 select: {
                     id: true,
                     firstName: true,
+                    image: true,
                     email: true,
+                    appointments: {
+                        appointmentDate: true,
+                        service: {
+                            serviceName: true,
+                            description: true
+                        },
+                    },
                     role: {
                         name: true,
                     }
