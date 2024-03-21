@@ -17,6 +17,9 @@ export class User extends BaseEntity{
     @Column({ name: 'email' })
     email!: string
     
+    @Column({ name: 'image' })
+    image!: string
+
     @Column({ name: 'password_hash', select: false})
     passwordHash!: string
 

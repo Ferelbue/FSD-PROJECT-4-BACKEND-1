@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 // CREATE USERS
 export const register = async (req: Request, res: Response) => {
 
-    
+
     try {
         //Recuperar datos
         const firstName = req.body.firstName;
@@ -43,28 +43,50 @@ export const register = async (req: Request, res: Response) => {
             }
         )
 
-        if(!exist){
-        // tratamos la data 
-        const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
+        if (!exist) {
+            // tratamos la data 
+            const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
 
-        // Guardar en BD
-        const newUser = await User.create({
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            passwordHash: passwordEncrypted
-        }).save()
+            // Guardar en BD
+            const newUser = await User.create({
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                passwordHash: passwordEncrypted
+            })
+            .save()
 
-        // Responder
-       return res.status(201).json(
-            {
-                success: false,
-                message: "User registered successfully"
-            }
-        )
+            const printUser = await User.findOne(
+                {
+                    where: {
+                        email: email,
+                    },
+                    relations: {
+                        role: true
+                    },
+                    select: {
+                        id: true,
+                        email: true,
+                        image:true,
+                        role: {
+                            id: true,
+                            name: true,
+                        }
+                    }
+                }
+            )
+
+            // Responder
+            return res.status(201).json(
+                {
+                    success: true,
+                    message: "User registered successfully",
+                    data: printUser
+                }
+            )
         }
 
-       return res.status(406).json({
+        return res.status(406).json({
             success: false,
             message: "Email already registered"
         })
@@ -170,6 +192,7 @@ export const login = async (req: Request, res: Response) => {
                 select: {
                     id: true,
                     email: true,
+                    image:true,
                     role: {
                         name: true,
                     }

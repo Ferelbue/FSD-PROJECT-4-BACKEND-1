@@ -25,6 +25,12 @@ export class Services1709246156854 implements MigrationInterface {
                         type: "text",
                         isNullable: false,
                     },
+                    {
+                        name: "image",
+                        type: "varchar",
+                        length: "255",
+                        isNullable: true,
+                    },
                 ],
             }),
             true

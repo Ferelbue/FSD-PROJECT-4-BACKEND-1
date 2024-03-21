@@ -33,6 +33,12 @@ export class Users1709246078708 implements MigrationInterface {
                         isUnique: true,
                     },
                     {
+                        name: "image",
+                        type: "varchar",
+                        length: "255",
+                        isNullable: true,
+                    },
+                    {
                         name: "password_hash",
                         type: "varchar",
                         length: "255",
