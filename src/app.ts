@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import { deleteUser,getUserProfile, getUsers, updateUserProfile, updateUserRole } from "./controllers/userController";
-import { createAppointment, getAllAppointment, getAppointment, updateAppointment } from "./controllers/appointmentController";
+import { createAppointment, deleteAppointment, getAllAppointment, getAppointment, updateAppointment } from "./controllers/appointmentController";
 import { createService, deleteService, getServices, updateService } from "./controllers/serviceController";
 import { login, register } from "./controllers/authController";
 import { auth } from "./middlewares/auth";
@@ -41,6 +41,7 @@ app.get('/api/appointments', auth, getAllAppointment)
 app.get('/api/appointments/:id', auth, getAppointment) 
 app.post('/api/appointments', auth, isAdmin, createAppointment) 
 app.put('/api/appointments', auth, updateAppointment) 
+app.delete('/api/appointments/:id', auth, deleteAppointment) 
 
 
 // SERVICES RUTES

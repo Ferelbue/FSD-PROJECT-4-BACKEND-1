@@ -87,9 +87,10 @@ export const getAllAppointment = async (req: Request, res: Response) => {
                 where: {
                     user: { id: userId }
                 },
-                relations: {
-                    user: true
-                },
+                relations: [
+                    'user',
+                    'service'
+                ],
                 select: {
                     id: true,
                     appointmentDate: true,
@@ -98,6 +99,8 @@ export const getAllAppointment = async (req: Request, res: Response) => {
                     },
                     service: {
                         id: true,
+                        serviceName: true,
+                        description:true
                     }
                 }
             }
@@ -290,6 +293,39 @@ export const updateAppointment = async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             message: "Appointment cant be update",
+            error: error
+        })
+    }
+}
+
+
+//DELETE APPOINTMENT
+export const deleteAppointment = async (req: Request, res: Response) => {
+
+    try {
+        const appointmentId = req.params.id
+
+        const appointment = await Appointment.findOneBy({
+            id: parseInt(appointmentId)
+        })
+        if (!appointment) {
+            return res.status(404).json({
+                success: false,
+                message: "Service not found"
+            })
+        }
+
+        const appointmentDeleted = await Appointment.remove(appointment)
+        
+        return res.status(200).json({
+            success: true,
+            message: "Service deleted successfully",
+            data: appointmentDeleted
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Service can't be deleted",
             error: error
         })
     }
