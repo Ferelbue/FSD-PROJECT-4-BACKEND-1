@@ -8,8 +8,10 @@ export const getServices = async (req: Request, res: Response) => {
         const users = await Service.find(
             {
                 select: {
+                    id: true,
                     serviceName: true,
                     description: true,
+                    image: true,
                 }
             }
         )

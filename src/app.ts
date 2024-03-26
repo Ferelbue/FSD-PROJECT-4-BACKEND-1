@@ -1,7 +1,7 @@
 
 import express from "express";
 import cors from "cors";
-import { deleteUser,getUserProfile, getUsers, updateUserProfile, updateUserRole } from "./controllers/userController";
+import { deleteUser,getUserByID,getUserProfile, getUsers, updateUserProfile, updateUserProfileById, updateUserRole } from "./controllers/userController";
 import { createAppointment, deleteAppointment, getAllAppointment, getAppointment, updateAppointment } from "./controllers/appointmentController";
 import { createService, deleteService, getServices, updateService } from "./controllers/serviceController";
 import { login, register } from "./controllers/authController";
@@ -30,16 +30,18 @@ app.post('/api/auth/login', login)
 // app.use('/',router)
 
 // USERS RUTES
-app.get('/api/users', auth, isSuperAdmin, getUsers)
+app.get('/api/users', auth, getUsers)
 app.get('/api/users/profile', auth, getUserProfile) 
 app.put('/api/users/profile', auth, updateUserProfile) 
+app.put('/api/users/profile/:id', auth, updateUserProfileById) 
 app.put('/api/users/:id/role', auth, isSuperAdmin, updateUserRole)
-app.delete('/api/users/:id', auth, isSuperAdmin, deleteUser)
+app.delete('/api/users/:id', auth, deleteUser)
+app.get('/api/user/:id', auth, getUserByID)
 
 // APPOINTMENTS RUTES 
 app.get('/api/appointments', auth, getAllAppointment) 
 app.get('/api/appointments/:id', auth, getAppointment) 
-app.post('/api/appointments', auth, isAdmin, createAppointment) 
+app.post('/api/appointments', auth, createAppointment) 
 app.put('/api/appointments', auth, updateAppointment) 
 app.delete('/api/appointments/:id', auth, deleteAppointment) 
 

@@ -7,15 +7,19 @@ export const getAppointment = async (req: Request, res: Response) => {
 
     try {
         //RECUPERAR DATOS
-        const appointmentId = req.params.id
+        const appointmentId = parseInt(req.params.id)
         const userId = req.tokenData.userId
         const roleName = req.tokenData.roleName
 
+        const today: Date = new Date();
+
+        let openAppointments: any[] = [];
+
         //Consultar y recuperar de la DB
-        const appointments = await Appointment.findOne(
+        const appointments = await Appointment.find(
             {
                 where: {
-                    id: parseInt(appointmentId)
+                    user: { id: appointmentId }
                 },
                 relations: {
                     user: true,
@@ -43,13 +47,24 @@ export const getAppointment = async (req: Request, res: Response) => {
             })
         }
 
-        if ((userId !== appointments.user.id) && ((roleName !== "super-admin") && (roleName !== "admin"))) {
-            return res.status(404).json({
-                success: false,
-                message: "Can't retrieve someone else appointment",
-            })
-        }
+        // if ((userId !== appointments.user.id) && ((roleName !== "super-admin") && (roleName !== "admin"))) {
+        //     return res.status(404).json({
+        //         success: false,
+        //         message: "Can't retrieve someone else appointment",
+        //     })
+        // }
 
+        for (let i = 0; i < appointments.length; i++) {
+
+
+            if (((appointments[i].appointmentDate).getTime()) > (today.getTime())) {
+
+
+                openAppointments.push(appointments[i])
+
+            }
+
+        }
 
 
         // RESPONDER
@@ -57,7 +72,7 @@ export const getAppointment = async (req: Request, res: Response) => {
             {
                 success: true,
                 message: "Appointment retrieved successfully",
-                data: appointments
+                data: openAppointments
             }
         )
     } catch (error) {
@@ -147,9 +162,11 @@ export const createAppointment = async (req: Request, res: Response) => {
     try {
         // Recuperar datos
         const appointmentDate = req.body.appointmentDate;
-        const userId = req.body.user.id;
-        const serviceId = req.body.service.id;
-
+        const userId = req.tokenData.userId
+        const serviceId = req.body.serviceId;
+        console.log(appointmentDate)
+        console.log(userId)
+        console.log(serviceId)
         // VALIDAR DATOS
         const regexDate = /^\d{4}-\d{2}-\d{2}$/;
         const dateOk = regexDate.test(appointmentDate);
@@ -175,7 +192,7 @@ export const createAppointment = async (req: Request, res: Response) => {
         //Responder
         res.status(201).json(
             {
-                success: false,
+                success: true,
                 message: "Appointment registered successfully"
             }
         )
