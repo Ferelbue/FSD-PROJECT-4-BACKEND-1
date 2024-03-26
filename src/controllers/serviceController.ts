@@ -43,7 +43,7 @@ export const createService = async (req: Request, res: Response) => {
         const newUser = await Service.create({
             serviceName: serviceName,
             description: description,
-      }).save()
+        }).save()
 
         res.status(201).json(
             {
@@ -100,7 +100,11 @@ export const updateService = async (req: Request, res: Response) => {
 
         )
 
-
+        const servicePrint = await Service.findOneBy(
+            {
+                id: parseInt(userId)
+            }
+        )
 
 
         // Responder
@@ -108,7 +112,7 @@ export const updateService = async (req: Request, res: Response) => {
             {
                 success: true,
                 message: "Service updated successfully",
-                data: serviceUpdated
+                data: servicePrint
             }
         )
 
@@ -138,7 +142,7 @@ export const deleteService = async (req: Request, res: Response) => {
         }
 
         const userDeleted = await Service.remove(user)
-        
+
         return res.status(200).json({
             success: true,
             message: "Service deleted successfully",
@@ -151,4 +155,53 @@ export const deleteService = async (req: Request, res: Response) => {
             error: error
         })
     }
+}
+
+export const getServiceByID = async (req: Request, res: Response) => {
+
+    try {
+        //RECUPERAR DATOS
+        const serviceId = req.params.id
+
+        //Consultar y recuperar de la DB
+        const service = await Service.findOne(
+            {
+                where: {
+                    id: parseInt(serviceId)
+                },
+                select: {
+                    id: true,
+                    serviceName: true,
+                    description: true,
+                    image: true
+                }
+            }
+        )
+
+        // VALIDAR
+        if (!service) {
+            return res.status(404).json({
+                success: false,
+                message: "Service not found",
+
+            })
+        }
+
+
+        // RESPONDER
+        res.status(200).json(
+            {
+                success: true,
+                message: "Service retrieved successfully",
+                data: service
+            }
+        )
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "User cant be retrieved",
+            error: error
+        })
+    }
+
 }
