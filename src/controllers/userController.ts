@@ -79,18 +79,17 @@ export const getUsers = async (req: Request, res: Response) => {
         // const page = Number(req.query.page) || 1;
         // const skip = (page - 1) * limit;
         //RECUPERAR DATOS DE LA BUSQUEDA
-        //Crear interface con el parametro de busqueda email que es de tipo FindOperator<string>
-        // interface queryFilters {
-        //     email?: FindOperator<string>,
-        //     firstName?: FindOperator<string>,
-        //     lastName?: FindOperator<string>
-        // }
-        // // Se declara la constante queryFiters de tipo queryFilters
-        // const queryFilters: queryFilters = {}
+        // Crear interface con el parametro de busqueda email que es de tipo FindOperator<string>
+        interface queryFilters {
+            email?: FindOperator<string>,
 
-        // if (req.query.email) {
-        //     queryFilters.email = Like("%" + req.query.email.toString() + "%");
-        // }
+        }
+        // Se declara la constante queryFiters de tipo queryFilters
+        const queryFilters: queryFilters = {}
+
+        if (req.query.email) {
+            queryFilters.email = Like("%" + req.query.email.toString() + "%");
+        }
         // if (req.query.firstName) {
         //     queryFilters.firstName = Like("%" + req.query.firstName.toString() + "%");
         // }
@@ -141,6 +140,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
             const userAll = await User.find(
                 {
+                    where: queryFilters,
                     relations: {
                         role: true
                     },
