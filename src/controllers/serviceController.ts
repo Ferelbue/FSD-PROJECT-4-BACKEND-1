@@ -36,15 +36,19 @@ export const getServices = async (req: Request, res: Response) => {
 export const createService = async (req: Request, res: Response) => {
 
     try {
-
         const serviceName = req.body.serviceName;
         const description = req.body.description;
+        const image = req.body.image;
 
+        
+        
         const newUser = await Service.create({
             serviceName: serviceName,
             description: description,
+            image:image,
         }).save()
-
+        
+        console.log(newUser)
         res.status(201).json(
             {
                 success: false,
@@ -67,6 +71,7 @@ export const updateService = async (req: Request, res: Response) => {
         const userId = req.params.id;
         const serviceName = req.body.serviceName;
         const description = req.body.description;
+        const image = req.body.image;
 
         //Validar datos
         const user = await Service.findOneBy(
@@ -95,7 +100,8 @@ export const updateService = async (req: Request, res: Response) => {
             },
             {
                 serviceName: serviceName,
-                description: description
+                description: description,
+                image: image
             },
 
         )

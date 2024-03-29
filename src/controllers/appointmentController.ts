@@ -33,6 +33,9 @@ export const getAppointment = async (req: Request, res: Response) => {
                     },
                     service: {
                         id: true,
+                        serviceName: true,
+                        description:true,
+                        image:true,
                     }
                 }
             }
@@ -115,7 +118,8 @@ export const getAllAppointment = async (req: Request, res: Response) => {
                     service: {
                         id: true,
                         serviceName: true,
-                        description:true
+                        description:true,
+                        image:true,
                     }
                 }
             }
