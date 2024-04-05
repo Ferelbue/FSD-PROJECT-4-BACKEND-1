@@ -2,7 +2,7 @@
   "name": "proyecto_4_backend_1",
   "version": "1.0.0",
   "description": "",
-  "main": "server.ts",
+  "main": "index.js",
   "scripts": {
     "seed": "ts-node ./src/database/seeders/seeds.ts",
     "migration-run": "typeorm-ts-node-commonjs migration:run -d ./src/database/db.ts",
