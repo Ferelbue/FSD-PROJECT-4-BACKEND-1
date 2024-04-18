@@ -8,7 +8,7 @@ import { login, register } from "./controllers/authController";
 import { auth } from "./middlewares/auth";
 import { isSuperAdmin } from "./middlewares/isSuperAdmin";
 import { isAdmin } from "./middlewares/isAdmin";
-// import router from "./routes/authRoutes"
+
 
 export const app = express();
 
