@@ -1,12 +1,12 @@
 import { faker } from '@faker-js/faker';
-import { User } from "../../models/User";
+import { Usero } from "../../models/Usero";
 import { AppDataSource } from "../db";
 
 export const userSeedDatabase = async () => {
     try {
         await AppDataSource.initialize();
 
-        const user = User.create({
+        const user = Usero.create({
             firstName: "user",
             lastName: "user",
             email: "user@user.com",
@@ -16,7 +16,7 @@ export const userSeedDatabase = async () => {
         })
         await user.save();
 
-        const user2 = User.create({
+        const user2 = Usero.create({
             firstName: "admin",
             lastName: "admin",
             email: "admin@admin.com",
@@ -26,7 +26,7 @@ export const userSeedDatabase = async () => {
         })
         await user2.save();
 
-        const user3 = User.create({
+        const user3 = Usero.create({
             firstName: "superAdmin",
             lastName: "superAdmin",
             email: "superAdmin@superAdmin.com",
@@ -36,7 +36,7 @@ export const userSeedDatabase = async () => {
         })
         await user3.save();
 
-        const user4 = User.create({
+        const user4 = Usero.create({
             firstName: "Fernando",
             lastName: "Elegido",
             email: "fernando@fernando.com",
@@ -46,7 +46,7 @@ export const userSeedDatabase = async () => {
         })
         await user4.save();
 
-        const user5 = User.create({
+        const user5 = Usero.create({
             firstName: "Marta",
             lastName: "Santes",
             email: "marta@marta.com",
@@ -56,7 +56,7 @@ export const userSeedDatabase = async () => {
         })
         await user5.save();
 
-        const user6 = User.create({
+        const user6 = Usero.create({
             firstName: "Lola",
             lastName: "Eletes",
             email: "lola@lola.com",
@@ -66,7 +66,7 @@ export const userSeedDatabase = async () => {
         })
         await user6.save();
 
-        const user7 = User.create({
+        const user7 = Usero.create({
             firstName: "Ruben",
             lastName: "Gomez",
             email: "ruben@ruben.com",
@@ -76,7 +76,7 @@ export const userSeedDatabase = async () => {
         })
         await user7.save();
 
-        const user8 = User.create({
+        const user8 = Usero.create({
             firstName: "David",
             lastName: "Martinez",
             email: "david@david.com",
@@ -86,7 +86,7 @@ export const userSeedDatabase = async () => {
         })
         await user8.save();
 
-        const user9 = User.create({
+        const user9 = Usero.create({
             firstName: "Pepa",
             lastName: "Perez",
             email: "pepa@pepa.com",
@@ -96,7 +96,7 @@ export const userSeedDatabase = async () => {
         })
         await user9.save();
 
-        const user10 = User.create({
+        const user10 = Usero.create({
             firstName: "Pepe",
             lastName: "Perez",
             email: "pepe@pepe.com",

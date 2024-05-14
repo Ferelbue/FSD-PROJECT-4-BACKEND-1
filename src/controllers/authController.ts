@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import { User } from "../models/User";
+import { Usero } from "../models/Usero";
 import jwt from "jsonwebtoken";
 
 // CREATE USERS
@@ -36,7 +36,7 @@ export const register = async (req: Request, res: Response) => {
             )
         }
 
-        const exist = await User.findOne(
+        const exist = await Usero.findOne(
             {
                 where: {
                     email: email,
@@ -49,7 +49,7 @@ export const register = async (req: Request, res: Response) => {
             const passwordEncrypted = bcrypt.hashSync(passwordHash, 8)
 
             // Guardar en BD
-            const newUser = await User.create({
+            const newUser = await Usero.create({
                 firstName: firstName,
                 lastName: lastName,
                 image: image,
@@ -58,7 +58,7 @@ export const register = async (req: Request, res: Response) => {
             })
                 .save()
 
-            const printUser = await User.findOne(
+            const printUser = await Usero.findOne(
                 {
                     where: {
                         email: email,
@@ -133,7 +133,7 @@ export const login = async (req: Request, res: Response) => {
 
         // Tratar datos
         // buscar usuario en BD
-        const user = await User.findOne(
+        const user = await Usero.findOne(
             {
                 where: {
                     email: email,
@@ -185,7 +185,7 @@ export const login = async (req: Request, res: Response) => {
         )
 
         // Mostrar datos
-        const user2 = await User.findOne(
+        const user2 = await Usero.findOne(
             {
                 where: {
                     email: email,

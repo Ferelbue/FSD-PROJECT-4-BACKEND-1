@@ -12,7 +12,7 @@ const serviceSeedDatabase = async () => {
     
         const appointment = Appointment.create({
             appointmentDate: date,
-            user: { id: faker.number.int({ min: 1, max: 10 }) },
+            usero: { id: faker.number.int({ min: 1, max: 10 }) },
             service: { id: faker.number.int({ min: 1, max: 9 }) }
         })
         await appointment.save();

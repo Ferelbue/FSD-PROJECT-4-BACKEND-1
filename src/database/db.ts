@@ -1,12 +1,12 @@
 import "reflect-metadata"
 import "dotenv/config"
 import { DataSource } from "typeorm"
-import { Roles1708955321316 } from "./migrations/1708955321316-roles"
+import { Roles1708955321316 } from "./migrations/1708955321316-role"
 import { Role } from "../models/Role"
-import { User } from "../models/User"
+import { Usero } from "../models/Usero"
 import { Service } from "../models/Service"
 import { Appointment } from "../models/Appointment"
-import { Users1709246078708 } from "./migrations/1709246078708-users"
+import { Useros1709246078708 } from "./migrations/1709246078708-useros"
 import { Services1709246156854 } from "./migrations/1709246156854-services"
 import { Appointments1709246239165 } from "./migrations/1709246239165-appointments"
 
@@ -20,13 +20,13 @@ export const AppDataSource = new DataSource({
     database: process.env.DB_DATABASE || "test",
     entities: [
         Role,
-        User,
+        Usero,
         Service,
         Appointment
     ],
     migrations: [
         Roles1708955321316,
-        Users1709246078708,
+        Useros1709246078708,
         Services1709246156854,
         Appointments1709246239165
     ],

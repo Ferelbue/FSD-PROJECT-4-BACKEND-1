@@ -19,16 +19,16 @@ export const getAppointment = async (req: Request, res: Response) => {
         const appointments = await Appointment.find(
             {
                 where: {
-                    user: { id: appointmentId }
+                    usero: { id: appointmentId }
                 },
                 relations: {
-                    user: true,
+                    usero: true,
                     service: true
                 },
                 select: {
                     id: true,
                     appointmentDate: true,
-                    user: {
+                    usero: {
                         id: true,
                     },
                     service: {
@@ -103,7 +103,7 @@ export const getAllAppointment = async (req: Request, res: Response) => {
         const appointments = await Appointment.find(
             {
                 where: {
-                    user: { id: userId }
+                    usero: { id: userId }
                 },
                 relations: [
                     'user',
@@ -112,7 +112,7 @@ export const getAllAppointment = async (req: Request, res: Response) => {
                 select: {
                     id: true,
                     appointmentDate: true,
-                    user: {
+                    usero: {
                         id: true,
                     },
                     service: {
@@ -185,7 +185,7 @@ export const createAppointment = async (req: Request, res: Response) => {
         //Guardar en DB
         const newAppointment = await Appointment.create({
             appointmentDate: appointmentDate,
-            user: {
+            usero: {
                 id: userId
             },
             service: {
@@ -238,13 +238,13 @@ export const updateAppointment = async (req: Request, res: Response) => {
                     id: appointmentId
                 },
                 relations: {
-                    user: true,
+                    usero: true,
                     service: true
                 },
                 select: {
                     id: true,
                     appointmentDate: true,
-                    user: {
+                    usero: {
                         id: true,
                     },
                     service: {
@@ -254,7 +254,7 @@ export const updateAppointment = async (req: Request, res: Response) => {
             }
         )
 
-        if ((appointment!.user.id !== userId) && (roleName === "user")) {
+        if ((appointment!.usero.id !== userId) && (roleName === "user")) {
             return res.status(404).json({
                 success: false,
                 message: "Can't modify someone else appointment",
@@ -267,11 +267,11 @@ export const updateAppointment = async (req: Request, res: Response) => {
         const appointmentUpdated = await Appointment.update(
             {
                 id: parseInt(appointmentId),
-                user: { id: appointment?.user.id },
+                usero: { id: appointment?.usero.id },
             },
             {
                 appointmentDate: appointmentDate,
-                user: { id: appointment?.user.id },
+                usero: { id: appointment?.usero.id },
                 service: { id: serviceId }
 
             }
@@ -282,15 +282,15 @@ export const updateAppointment = async (req: Request, res: Response) => {
             {
                 where: {
                     id: parseInt(appointmentId),
-                    user: { id: appointment?.user.id },
+                    usero: { id: appointment?.usero.id },
                 },
                 relations: {
-                    user: true
+                    usero: true
                 },
                 select: {
                     id: true,
                     appointmentDate: true,
-                    user: {
+                    usero: {
                         id: true,
                     },
                     service: {

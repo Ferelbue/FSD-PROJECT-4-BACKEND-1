@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { User } from "../models/User"
+import { Usero } from "../models/Usero"
 import { FindOperator, Like } from "typeorm"
 import bcrypt from "bcrypt";
 
@@ -12,7 +12,7 @@ export const getUserProfile = async (req: Request, res: Response) => {
         const userId = req.tokenData.userId
 
         //CONSULTA
-        const user = await User.find(
+        const user = await Usero.find(
             {
                 where: {
                     id: userId
@@ -99,7 +99,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
         if (userRole === "user") {
             //CONSULTA. Busqueda con los parametros de la query
-            const user = await User.find(
+            const user = await Usero.find(
                 {
                     where: {
                         id: userId
@@ -138,7 +138,7 @@ export const getUsers = async (req: Request, res: Response) => {
 
         } else {
 
-            const userAll = await User.find(
+            const userAll = await Usero.find(
                 {
                     where: queryFilters,
                     relations: {
@@ -190,7 +190,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         let newPassword = req.body.newPassword
         const userId = req.tokenData.userId
 
-        const user = await User.findOne(
+        const user = await Usero.findOne(
             {
                 where: {
                     id: userId
@@ -271,7 +271,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
             )
         }
 
-        const exist = await User.findOne(
+        const exist = await Usero.findOne(
             {
                 where: {
                     email: email,
@@ -319,7 +319,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
 
 
         // Actualizar datos en la
-        const userUpdated = await User.update(
+        const userUpdated = await Usero.update(
             {
                 id: userId
             },
@@ -333,7 +333,7 @@ export const updateUserProfile = async (req: Request, res: Response) => {
         )
 
         //Recuper los datos para mostrarlos en la respuesta
-        const user2 = await User.findOne(
+        const user2 = await Usero.findOne(
             {
                 where: {
                     id: userId
@@ -393,7 +393,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
 
 
         // Actualizar datos
-        const userUpdated = await User.update(
+        const userUpdated = await Usero.update(
             {
                 id: parseInt(userId)
             },
@@ -403,7 +403,7 @@ export const updateUserRole = async (req: Request, res: Response) => {
         )
 
         //Recuper los datos para mostrarlos en la respuesta
-        const user = await User.findOne(
+        const user = await Usero.findOne(
             {
                 where: {
                     id: parseInt(userId)
@@ -448,7 +448,7 @@ export const deleteUser = async (req: Request, res: Response) => {
         const userRole = req.tokenData.roleName
         const tokenUserId = req.tokenData.userId.toString()
 
-        const user = await User.findOneBy({
+        const user = await Usero.findOneBy({
             id: parseInt(userId)
         })
 
@@ -463,7 +463,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 
         if (userRole !== "user" || (userId === tokenUserId)) {
             // ACTUALIZAR EN BD
-            const userDeleted = await User.remove(user)
+            const userDeleted = await Usero.remove(user)
 
             // RESPONDER
             return res.status(200).json({
@@ -490,7 +490,7 @@ export const getUserByID = async (req: Request, res: Response) => {
         const roleName = req.tokenData.roleName
 
         //Consultar y recuperar de la DB
-        const user = await User.findOne(
+        const user = await Usero.findOne(
             {
                 where: {
                     id: parseInt(userId)
@@ -560,7 +560,7 @@ export const updateUserProfileById = async (req: Request, res: Response) => {
         let newPassword = req.body.newPassword
         const userId = parseInt(req.params.id)
 
-        const user = await User.findOne(
+        const user = await Usero.findOne(
             {
                 where: {
                     id: userId
@@ -641,7 +641,7 @@ export const updateUserProfileById = async (req: Request, res: Response) => {
             )
         }
 
-        const exist = await User.findOne(
+        const exist = await Usero.findOne(
             {
                 where: {
                     email: email,
@@ -689,7 +689,7 @@ export const updateUserProfileById = async (req: Request, res: Response) => {
 
 
         // Actualizar datos en la
-        const userUpdated = await User.update(
+        const userUpdated = await Usero.update(
             {
                 id: userId
             },
@@ -703,7 +703,7 @@ export const updateUserProfileById = async (req: Request, res: Response) => {
         )
 
         //Recuper los datos para mostrarlos en la respuesta
-        const user2 = await User.findOne(
+        const user2 = await Usero.findOne(
             {
                 where: {
                     id: userId

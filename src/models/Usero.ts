@@ -2,8 +2,8 @@ import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGe
 import { Role } from "./Role"
 import { Appointment } from "./Appointment"
 
-@Entity('users')
-export class User extends BaseEntity{
+@Entity('useros')
+export class Usero extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id!: number
@@ -23,10 +23,10 @@ export class User extends BaseEntity{
     @Column({ name: 'password_hash', select: false})
     passwordHash!: string
 
-    @ManyToOne(() => Role, (role) => role.users)
+    @ManyToOne(() => Role, (role) => role.useros)
     @JoinColumn({ name: "role_id" })
     role!: Role;
 
-    @OneToMany(() => Appointment, (appointment) => appointment.user)
+    @OneToMany(() => Appointment, (appointment) => appointment.usero)
     appointments!: Appointment[];
 }
